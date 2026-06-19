@@ -21,6 +21,10 @@ Repositório da especificação oficial do MVP da Triggma, com foco em:
 - [Plano de testes MVP](docs/plano-testes-mvp.md)
 - [Backlog de implementacao MVP](docs/backlog-mvp.md)
 
+## Branding
+
+- [Kit de logo premium Triggma (SVG)](branding/README.md)
+
 ## Objetivo do MVP
 
 Permitir que uma empresa consiga, em poucos passos:

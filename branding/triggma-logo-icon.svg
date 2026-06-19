@@ -1,0 +1,22 @@
+<svg width="1024" height="1024" viewBox="0 0 1024 1024" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bgGrad" x1="128" y1="96" x2="896" y2="928" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#2563EB"/>
+      <stop offset="0.55" stop-color="#7C3AED"/>
+      <stop offset="1" stop-color="#06B6D4"/>
+    </linearGradient>
+  </defs>
+
+  <rect x="72" y="72" width="880" height="880" rx="220" fill="url(#bgGrad)"/>
+
+  <rect x="268" y="292" width="488" height="104" rx="52" fill="#FFFFFF"/>
+  <rect x="460" y="292" width="104" height="496" rx="52" fill="#FFFFFF"/>
+
+  <path d="M294 728 L464 558 L578 672 L742 508" stroke="#FFFFFF" stroke-width="62" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M672 508 H742 V578" stroke="#FFFFFF" stroke-width="46" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <circle cx="294" cy="728" r="30" fill="#C4B5FD"/>
+  <circle cx="464" cy="558" r="30" fill="#DBEAFE"/>
+  <circle cx="578" cy="672" r="30" fill="#E9D5FF"/>
+  <circle cx="742" cy="508" r="30" fill="#CCFBF1"/>
+</svg>
