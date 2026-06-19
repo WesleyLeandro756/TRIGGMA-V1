@@ -17,6 +17,8 @@ Repositório da especificação oficial do MVP da Triggma, com foco em:
 - [Prompt Lovable upgrade site/admin/marketing](docs/PROMPT_LOVABLE_UPGRADE_SITE_ADMIN_MARKETING_TRIGGMA.md)
 - [Prompt Lovable planos/performance/downloads](docs/PROMPT_LOVABLE_PLANOS_PERFORMANCE_DOWNLOADS_TRIGGMA.md)
 - [Modelos de links Triggma para aprovacao](docs/TRIGGMA_LINK_MODELOS_APROVACAO.md)
+- [Engenharia de links + QR Triggma (Lovable)](docs/ENGENHARIA_LINKS_QR_TRIGGMA_LOVABLE.md)
+- [Prompt Lovable: links + QR Triggma](docs/PROMPT_LOVABLE_ENGENHARIA_LINKS_QR_TRIGGMA.md)
 - [Arquitetura SaaS multi-tenant](docs/arquitetura-multi-tenant.md)
 - [Modelo de dados MVP](docs/modelo-dados-mvp.md)
 - [Plano de testes MVP](docs/plano-testes-mvp.md)
