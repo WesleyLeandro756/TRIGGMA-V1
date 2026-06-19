@@ -11,6 +11,15 @@ com foco em tecnologia, crescimento e marketing.
 - `triggma-logo-monochrome.svg` -> versao monocromatica (preto/branco)
 - `triggma-favicon.svg` -> favicon simplificado
 - `TRIGGMA_BRAND_GUIDE.md` -> guia rapido de uso
+- `png/*.png` -> exportacoes PNG para visualizacao rapida
+
+### PNGs gerados
+
+- `png/triggma-logo-primary.png`
+- `png/triggma-logo-horizontal.png`
+- `png/triggma-logo-icon.png`
+- `png/triggma-logo-monochrome.png`
+- `png/triggma-favicon.png`
 
 ## Conceito do simbolo
 
