@@ -1,0 +1,18 @@
+<svg width="1200" height="320" viewBox="0 0 1200 320" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1200" height="320" fill="#06080D"/>
+
+  <g transform="translate(40 40)">
+    <rect x="0" y="0" width="240" height="240" rx="54" fill="#0D111A" stroke="#1F2937" stroke-width="2"/>
+    <path d="M48 172 L94 126 L126 158 L188 96" stroke="#22C55E" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M168 96 H188 V116" stroke="#22C55E" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"/>
+    <rect x="76" y="62" width="88" height="20" rx="10" fill="#22C55E"/>
+    <rect x="110" y="62" width="20" height="92" rx="10" fill="#22C55E"/>
+    <circle cx="48" cy="172" r="8" fill="#86EFAC"/>
+    <circle cx="94" cy="126" r="8" fill="#22C55E"/>
+    <circle cx="126" cy="158" r="8" fill="#4ADE80"/>
+    <circle cx="188" cy="96" r="8" fill="#86EFAC"/>
+  </g>
+
+  <text x="332" y="165" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="102" font-weight="800" fill="#F8FAFC" letter-spacing="2.2">TRIGGMA</text>
+  <text x="336" y="210" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="30" font-weight="600" fill="#94A3B8" letter-spacing="4">GROWTH ENGINE</text>
+</svg>

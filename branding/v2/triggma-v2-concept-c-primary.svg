@@ -1,0 +1,26 @@
+<svg width="1200" height="320" viewBox="0 0 1200 320" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="cGrad" x1="0" y1="0" x2="240" y2="240" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#F97316"/>
+      <stop offset="0.55" stop-color="#EF4444"/>
+      <stop offset="1" stop-color="#A855F7"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1200" height="320" fill="#0F0A16"/>
+
+  <g transform="translate(40 40)">
+    <rect x="0" y="0" width="240" height="240" rx="54" fill="#1A1126"/>
+    <path d="M60 182 L108 134 L142 168 L186 124" stroke="url(#cGrad)" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M170 124 H186 V140" stroke="url(#cGrad)" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M70 74 H176" stroke="url(#cGrad)" stroke-width="20" stroke-linecap="round"/>
+    <path d="M124 74 V186" stroke="url(#cGrad)" stroke-width="20" stroke-linecap="round"/>
+    <circle cx="60" cy="182" r="9" fill="#FDBA74"/>
+    <circle cx="108" cy="134" r="9" fill="#FB7185"/>
+    <circle cx="142" cy="168" r="9" fill="#E879F9"/>
+    <circle cx="186" cy="124" r="9" fill="#FDBA74"/>
+  </g>
+
+  <text x="332" y="164" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="100" font-weight="800" fill="#FFFFFF" letter-spacing="1.8">TRIGGMA</text>
+  <text x="336" y="210" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="30" font-weight="600" fill="#C4B5FD" letter-spacing="4">IMPACT MARKETING TECH</text>
+</svg>

@@ -1,0 +1,20 @@
+<svg width="1024" height="1024" viewBox="0 0 1024 1024" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bIconGrad" x1="80" y1="80" x2="944" y2="944" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#3B82F6"/>
+      <stop offset="0.55" stop-color="#8B5CF6"/>
+      <stop offset="1" stop-color="#EC4899"/>
+    </linearGradient>
+  </defs>
+
+  <rect x="72" y="72" width="880" height="880" rx="220" fill="#111827"/>
+  <circle cx="512" cy="512" r="286" stroke="url(#bIconGrad)" stroke-width="62"/>
+  <path d="M348 512 H676" stroke="url(#bIconGrad)" stroke-width="52" stroke-linecap="round"/>
+  <path d="M512 348 V676" stroke="url(#bIconGrad)" stroke-width="52" stroke-linecap="round"/>
+
+  <path d="M266 688 L432 522 L548 638 L748 438" stroke="url(#bIconGrad)" stroke-width="48" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="266" cy="688" r="25" fill="#60A5FA"/>
+  <circle cx="432" cy="522" r="25" fill="#A78BFA"/>
+  <circle cx="548" cy="638" r="25" fill="#F472B6"/>
+  <circle cx="748" cy="438" r="25" fill="#60A5FA"/>
+</svg>

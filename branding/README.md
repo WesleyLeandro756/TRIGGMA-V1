@@ -21,6 +21,10 @@ com foco em tecnologia, crescimento e marketing.
 - `png/triggma-logo-monochrome.png`
 - `png/triggma-favicon.png`
 
+## Variacoes V2 (Logo Lab)
+
+- `v2/README.md` -> conceitos alternativos premium
+
 ## Conceito do simbolo
 
 O simbolo combina:
