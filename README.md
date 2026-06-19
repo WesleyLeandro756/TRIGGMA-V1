@@ -15,6 +15,7 @@ Repositório da especificação oficial do MVP da Triggma, com foco em:
 - [Prompt Lovable execucao continua (anti-pausas)](docs/PROMPT_LOVABLE_EXECUCAO_CONTINUA_TRIGGMA.md)
 - [Prompt Lovable lancamento MVP (trial/cupom/suporte)](docs/PROMPT_LOVABLE_LANCAMENTO_TRIGGMA.md)
 - [Prompt Lovable upgrade site/admin/marketing](docs/PROMPT_LOVABLE_UPGRADE_SITE_ADMIN_MARKETING_TRIGGMA.md)
+- [Prompt Lovable planos/performance/downloads](docs/PROMPT_LOVABLE_PLANOS_PERFORMANCE_DOWNLOADS_TRIGGMA.md)
 - [Arquitetura SaaS multi-tenant](docs/arquitetura-multi-tenant.md)
 - [Modelo de dados MVP](docs/modelo-dados-mvp.md)
 - [Plano de testes MVP](docs/plano-testes-mvp.md)
