@@ -25,6 +25,10 @@ com foco em tecnologia, crescimento e marketing.
 
 - `v2/README.md` -> conceitos alternativos premium
 
+## Variacoes V3 (10 modelos)
+
+- `v3/README.md` -> 10 modelos novos de logo (SVG + PNG)
+
 ## Conceito do simbolo
 
 O simbolo combina:

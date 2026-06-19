@@ -1,0 +1,27 @@
+<svg width="1200" height="320" viewBox="0 0 1200 320" fill="none" xmlns="http://www.w3.org/2000/svg">
+  
+  <defs>
+    <linearGradient id="grad-10-aurora-stack" x1="0" y1="0" x2="240" y2="240" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#60A5FA"/>
+      <stop offset="0.55" stop-color="#A78BFA"/>
+      <stop offset="1" stop-color="#F472B6"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="320" fill="#FFFFFF"/>
+  <g transform="translate(40 40)">
+    <rect x="0" y="0" width="240" height="240" rx="56" fill="#111827"/>
+    
+    <path d="M52 184 L112 124 L146 158 L188 116" stroke="url(#grad-10-aurora-stack)" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M168 116 H188 V136" stroke="url(#grad-10-aurora-stack)" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"/>
+    
+    <rect x="62" y="60" width="116" height="24" rx="12" fill="url(#grad-10-aurora-stack)"/>
+    <rect x="108" y="60" width="24" height="120" rx="12" fill="url(#grad-10-aurora-stack)"/>
+    <path d="M64 176 L108 132 L140 164 L184 120" stroke="url(#grad-10-aurora-stack)" stroke-width="14" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="64" cy="176" r="8" fill="#FDBA74"/>
+    <circle cx="108" cy="132" r="8" fill="#BFDBFE"/>
+    <circle cx="140" cy="164" r="8" fill="#F9A8D4"/>
+    <circle cx="184" cy="120" r="8" fill="#A7F3D0"/>
+  </g>
+  <text x="334" y="165" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="100" font-weight="800" fill="#111827" letter-spacing="1.8">TRIGGMA</text>
+  <text x="338" y="210" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="30" font-weight="600" fill="#64748B" letter-spacing="3.8">AURORA STACK</text>
+</svg>

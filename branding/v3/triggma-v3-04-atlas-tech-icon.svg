@@ -1,0 +1,20 @@
+<svg width="1024" height="1024" viewBox="0 0 1024 1024" fill="none" xmlns="http://www.w3.org/2000/svg">
+  
+  <defs>
+    <linearGradient id="icon-grad-04-atlas-tech" x1="0" y1="0" x2="240" y2="240" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#06B6D4"/>
+      <stop offset="0.55" stop-color="#3B82F6"/>
+      <stop offset="1" stop-color="#8B5CF6"/>
+    </linearGradient>
+  </defs>
+  <rect x="72" y="72" width="880" height="880" rx="220" fill="#0F172A"/>
+  
+    <rect x="210" y="680" width="60" height="80" rx="20" fill="url(#icon-grad-04-atlas-tech)"/>
+    <rect x="286" y="640" width="60" height="120" rx="20" fill="url(#icon-grad-04-atlas-tech)"/>
+    <rect x="362" y="590" width="60" height="170" rx="20" fill="url(#icon-grad-04-atlas-tech)"/>
+    <rect x="438" y="540" width="60" height="220" rx="20" fill="url(#icon-grad-04-atlas-tech)"/>
+    
+    <rect x="286" y="264" width="452" height="98" rx="49" fill="url(#icon-grad-04-atlas-tech)"/>
+    <rect x="463" y="264" width="98" height="468" rx="49" fill="url(#icon-grad-04-atlas-tech)"/>
+    <path d="M252 710 L422 540 L542 660 L742 460" stroke="url(#icon-grad-04-atlas-tech)" stroke-width="60" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

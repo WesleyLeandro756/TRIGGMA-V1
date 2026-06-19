@@ -1,0 +1,17 @@
+<svg width="1024" height="1024" viewBox="0 0 1024 1024" fill="none" xmlns="http://www.w3.org/2000/svg">
+  
+  <defs>
+    <linearGradient id="icon-grad-07-prime-network" x1="0" y1="0" x2="240" y2="240" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#38BDF8"/>
+      <stop offset="0.55" stop-color="#818CF8"/>
+      <stop offset="1" stop-color="#E879F9"/>
+    </linearGradient>
+  </defs>
+  <rect x="72" y="72" width="880" height="880" rx="220" fill="#10172A"/>
+  
+    <circle cx="512" cy="512" r="290" stroke="url(#icon-grad-07-prime-network)" stroke-width="48"/>
+    
+    <rect x="286" y="264" width="452" height="98" rx="49" fill="url(#icon-grad-07-prime-network)"/>
+    <rect x="463" y="264" width="98" height="468" rx="49" fill="url(#icon-grad-07-prime-network)"/>
+    <path d="M252 710 L422 540 L542 660 L742 460" stroke="url(#icon-grad-07-prime-network)" stroke-width="60" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
