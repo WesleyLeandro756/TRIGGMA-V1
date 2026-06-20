@@ -29,6 +29,7 @@ Repositório da especificação oficial do MVP da Triggma, com foco em:
 ## Branding
 
 - [Kit de logo premium Triggma (SVG)](branding/README.md)
+- [Mockups de telas Triggma (login/assinante/admin)](mockups/README.md)
 
 ## Objetivo do MVP
 

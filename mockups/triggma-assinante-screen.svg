@@ -1,0 +1,69 @@
+<svg width="1600" height="1000" viewBox="0 0 1600 1000" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="logoGrad2" x1="0" y1="0" x2="96" y2="96" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#2563EB"/>
+      <stop offset="0.55" stop-color="#7C3AED"/>
+      <stop offset="1" stop-color="#06B6D4"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1600" height="1000" fill="#F1F5F9"/>
+
+  <rect x="28" y="24" width="280" height="952" rx="24" fill="#0B1220"/>
+  <rect x="62" y="56" width="82" height="82" rx="20" fill="url(#logoGrad2)"/>
+  <text x="158" y="108" font-family="Inter, Arial, sans-serif" font-size="36" font-weight="800" fill="#FFFFFF">Triggma</text>
+  <text x="62" y="198" font-family="Inter, Arial, sans-serif" font-size="23" font-weight="600" fill="#94A3B8">Dashboard</text>
+  <text x="62" y="246" font-family="Inter, Arial, sans-serif" font-size="23" font-weight="600" fill="#94A3B8">Clientes</text>
+  <text x="62" y="294" font-family="Inter, Arial, sans-serif" font-size="23" font-weight="600" fill="#94A3B8">Campanhas</text>
+  <text x="62" y="342" font-family="Inter, Arial, sans-serif" font-size="23" font-weight="600" fill="#94A3B8">Leads</text>
+  <text x="62" y="390" font-family="Inter, Arial, sans-serif" font-size="23" font-weight="600" fill="#94A3B8">Recompensas</text>
+  <text x="62" y="438" font-family="Inter, Arial, sans-serif" font-size="23" font-weight="600" fill="#94A3B8">Assinatura</text>
+
+  <rect x="336" y="24" width="1236" height="952" rx="24" fill="#FFFFFF"/>
+  <text x="382" y="90" font-family="Inter, Arial, sans-serif" font-size="40" font-weight="800" fill="#0F172A">Painel do Assinante</text>
+  <text x="382" y="126" font-family="Inter, Arial, sans-serif" font-size="22" font-weight="500" fill="#64748B">Acompanhe indicacoes, conversoes e faturamento</text>
+
+  <rect x="382" y="160" width="282" height="120" rx="18" fill="#EFF6FF" stroke="#BFDBFE"/>
+  <text x="406" y="208" font-family="Inter, Arial, sans-serif" font-size="20" font-weight="600" fill="#1D4ED8">Clientes ativos</text>
+  <text x="406" y="258" font-family="Inter, Arial, sans-serif" font-size="44" font-weight="800" fill="#0F172A">1.248</text>
+
+  <rect x="680" y="160" width="282" height="120" rx="18" fill="#F5F3FF" stroke="#DDD6FE"/>
+  <text x="704" y="208" font-family="Inter, Arial, sans-serif" font-size="20" font-weight="600" fill="#6D28D9">Indicacoes</text>
+  <text x="704" y="258" font-family="Inter, Arial, sans-serif" font-size="44" font-weight="800" fill="#0F172A">392</text>
+
+  <rect x="978" y="160" width="282" height="120" rx="18" fill="#ECFEFF" stroke="#A5F3FC"/>
+  <text x="1002" y="208" font-family="Inter, Arial, sans-serif" font-size="20" font-weight="600" fill="#0E7490">Conversoes</text>
+  <text x="1002" y="258" font-family="Inter, Arial, sans-serif" font-size="44" font-weight="800" fill="#0F172A">129</text>
+
+  <rect x="1276" y="160" width="252" height="120" rx="18" fill="#F0FDF4" stroke="#BBF7D0"/>
+  <text x="1300" y="208" font-family="Inter, Arial, sans-serif" font-size="20" font-weight="600" fill="#15803D">Pontos emitidos</text>
+  <text x="1300" y="258" font-family="Inter, Arial, sans-serif" font-size="44" font-weight="800" fill="#0F172A">12.8k</text>
+
+  <rect x="382" y="308" width="736" height="310" rx="20" fill="#FFFFFF" stroke="#E2E8F0"/>
+  <text x="414" y="356" font-family="Inter, Arial, sans-serif" font-size="24" font-weight="700" fill="#0F172A">Crescimento semanal</text>
+  <polyline points="430,560 520,500 610,520 700,460 790,480 880,430 970,450 1060,390" fill="none" stroke="#2563EB" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="1060" cy="390" r="8" fill="#2563EB"/>
+
+  <rect x="1140" y="308" width="388" height="310" rx="20" fill="#FFFFFF" stroke="#E2E8F0"/>
+  <text x="1172" y="356" font-family="Inter, Arial, sans-serif" font-size="24" font-weight="700" fill="#0F172A">Link principal</text>
+  <rect x="1172" y="386" width="324" height="64" rx="12" fill="#F8FAFC" stroke="#CBD5E1"/>
+  <text x="1188" y="425" font-family="Inter, Arial, sans-serif" font-size="18" font-weight="600" fill="#1E293B">triggma.com.br/r/ana23</text>
+  <rect x="1172" y="468" width="154" height="56" rx="12" fill="#2563EB"/>
+  <text x="1249" y="504" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="18" font-weight="700" fill="#FFFFFF">Copiar link</text>
+  <rect x="1342" y="468" width="154" height="56" rx="12" fill="#FFFFFF" stroke="#CBD5E1"/>
+  <text x="1419" y="504" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="18" font-weight="700" fill="#0F172A">Baixar QR</text>
+  <rect x="1172" y="540" width="130" height="130" rx="10" fill="#FFFFFF" stroke="#CBD5E1"/>
+  <path d="M1190 558 H1240 V608 H1190 Z M1254 558 H1284 V588 H1254 Z M1190 622 H1220 V652 H1190 Z M1230 622 H1284 V676 H1230 Z" fill="#0F172A"/>
+
+  <rect x="382" y="644" width="1146" height="300" rx="20" fill="#FFFFFF" stroke="#E2E8F0"/>
+  <text x="414" y="692" font-family="Inter, Arial, sans-serif" font-size="24" font-weight="700" fill="#0F172A">Leads recentes</text>
+  <rect x="414" y="714" width="1082" height="54" rx="10" fill="#F8FAFC"/>
+  <text x="440" y="747" font-family="Inter, Arial, sans-serif" font-size="20" font-weight="600" fill="#334155">Nome</text>
+  <text x="740" y="747" font-family="Inter, Arial, sans-serif" font-size="20" font-weight="600" fill="#334155">Origem</text>
+  <text x="1040" y="747" font-family="Inter, Arial, sans-serif" font-size="20" font-weight="600" fill="#334155">Status</text>
+  <text x="1320" y="747" font-family="Inter, Arial, sans-serif" font-size="20" font-weight="600" fill="#334155">Data</text>
+  <text x="440" y="804" font-family="Inter, Arial, sans-serif" font-size="19" font-weight="500" fill="#0F172A">Marina Costa</text>
+  <text x="740" y="804" font-family="Inter, Arial, sans-serif" font-size="19" font-weight="500" fill="#0F172A">/r/ana23</text>
+  <text x="1040" y="804" font-family="Inter, Arial, sans-serif" font-size="19" font-weight="600" fill="#16A34A">Convertido</text>
+  <text x="1320" y="804" font-family="Inter, Arial, sans-serif" font-size="19" font-weight="500" fill="#0F172A">20/06/2026</text>
+</svg>

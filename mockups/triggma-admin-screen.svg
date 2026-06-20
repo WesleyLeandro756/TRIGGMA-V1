@@ -1,0 +1,76 @@
+<svg width="1600" height="1000" viewBox="0 0 1600 1000" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="logoGrad3" x1="0" y1="0" x2="96" y2="96" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#2563EB"/>
+      <stop offset="0.55" stop-color="#7C3AED"/>
+      <stop offset="1" stop-color="#06B6D4"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1600" height="1000" fill="#E2E8F0"/>
+  <rect x="30" y="24" width="1540" height="952" rx="24" fill="#0F172A"/>
+  <rect x="30" y="24" width="1540" height="84" rx="24" fill="#111827"/>
+
+  <rect x="62" y="40" width="52" height="52" rx="14" fill="url(#logoGrad3)"/>
+  <text x="132" y="76" font-family="Inter, Arial, sans-serif" font-size="32" font-weight="800" fill="#FFFFFF">Triggma Admin</text>
+  <text x="1320" y="76" font-family="Inter, Arial, sans-serif" font-size="20" font-weight="600" fill="#93C5FD">Super Admin</text>
+
+  <rect x="62" y="130" width="1476" height="820" rx="20" fill="#F8FAFC"/>
+  <text x="98" y="188" font-family="Inter, Arial, sans-serif" font-size="36" font-weight="800" fill="#0F172A">Controle global da plataforma</text>
+  <text x="98" y="222" font-family="Inter, Arial, sans-serif" font-size="20" font-weight="500" fill="#64748B">Assinaturas, tenants, suporte e operacao</text>
+
+  <rect x="98" y="248" width="340" height="116" rx="18" fill="#DBEAFE"/>
+  <text x="124" y="292" font-family="Inter, Arial, sans-serif" font-size="20" font-weight="700" fill="#1D4ED8">Tenants ativos</text>
+  <text x="124" y="338" font-family="Inter, Arial, sans-serif" font-size="44" font-weight="800" fill="#0F172A">842</text>
+
+  <rect x="456" y="248" width="340" height="116" rx="18" fill="#EDE9FE"/>
+  <text x="482" y="292" font-family="Inter, Arial, sans-serif" font-size="20" font-weight="700" fill="#6D28D9">MRR</text>
+  <text x="482" y="338" font-family="Inter, Arial, sans-serif" font-size="44" font-weight="800" fill="#0F172A">R$ 218k</text>
+
+  <rect x="814" y="248" width="340" height="116" rx="18" fill="#DCFCE7"/>
+  <text x="840" y="292" font-family="Inter, Arial, sans-serif" font-size="20" font-weight="700" fill="#15803D">Tickets suporte</text>
+  <text x="840" y="338" font-family="Inter, Arial, sans-serif" font-size="44" font-weight="800" fill="#0F172A">37</text>
+
+  <rect x="1172" y="248" width="340" height="116" rx="18" fill="#FEF3C7"/>
+  <text x="1198" y="292" font-family="Inter, Arial, sans-serif" font-size="20" font-weight="700" fill="#B45309">Trial expira hoje</text>
+  <text x="1198" y="338" font-family="Inter, Arial, sans-serif" font-size="44" font-weight="800" fill="#0F172A">14</text>
+
+  <rect x="98" y="390" width="918" height="536" rx="18" fill="#FFFFFF" stroke="#E2E8F0"/>
+  <text x="130" y="438" font-family="Inter, Arial, sans-serif" font-size="24" font-weight="700" fill="#0F172A">Empresas assinantes</text>
+  <rect x="130" y="456" width="854" height="54" rx="10" fill="#F8FAFC"/>
+  <text x="154" y="490" font-family="Inter, Arial, sans-serif" font-size="19" font-weight="700" fill="#334155">Empresa</text>
+  <text x="470" y="490" font-family="Inter, Arial, sans-serif" font-size="19" font-weight="700" fill="#334155">Plano</text>
+  <text x="630" y="490" font-family="Inter, Arial, sans-serif" font-size="19" font-weight="700" fill="#334155">Status</text>
+  <text x="830" y="490" font-family="Inter, Arial, sans-serif" font-size="19" font-weight="700" fill="#334155">MRR</text>
+
+  <text x="154" y="548" font-family="Inter, Arial, sans-serif" font-size="18" font-weight="500" fill="#0F172A">Oficina Alpha</text>
+  <text x="470" y="548" font-family="Inter, Arial, sans-serif" font-size="18" font-weight="500" fill="#0F172A">Media Empresa</text>
+  <text x="630" y="548" font-family="Inter, Arial, sans-serif" font-size="18" font-weight="700" fill="#16A34A">Ativo</text>
+  <text x="830" y="548" font-family="Inter, Arial, sans-serif" font-size="18" font-weight="500" fill="#0F172A">R$ 249,90</text>
+
+  <text x="154" y="596" font-family="Inter, Arial, sans-serif" font-size="18" font-weight="500" fill="#0F172A">Clinica Vida+</text>
+  <text x="470" y="596" font-family="Inter, Arial, sans-serif" font-size="18" font-weight="500" fill="#0F172A">Media Grande</text>
+  <text x="630" y="596" font-family="Inter, Arial, sans-serif" font-size="18" font-weight="700" fill="#16A34A">Ativo</text>
+  <text x="830" y="596" font-family="Inter, Arial, sans-serif" font-size="18" font-weight="500" fill="#0F172A">R$ 499,99</text>
+
+  <text x="154" y="644" font-family="Inter, Arial, sans-serif" font-size="18" font-weight="500" fill="#0F172A">Restaurante Sabor</text>
+  <text x="470" y="644" font-family="Inter, Arial, sans-serif" font-size="18" font-weight="500" fill="#0F172A">Inicia</text>
+  <text x="630" y="644" font-family="Inter, Arial, sans-serif" font-size="18" font-weight="700" fill="#EA580C">Trial</text>
+  <text x="830" y="644" font-family="Inter, Arial, sans-serif" font-size="18" font-weight="500" fill="#0F172A">R$ 99,00</text>
+
+  <rect x="1040" y="390" width="472" height="256" rx="18" fill="#FFFFFF" stroke="#E2E8F0"/>
+  <text x="1070" y="438" font-family="Inter, Arial, sans-serif" font-size="24" font-weight="700" fill="#0F172A">Acoes rapidas</text>
+  <rect x="1070" y="458" width="412" height="52" rx="12" fill="#2563EB"/>
+  <text x="1276" y="492" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="19" font-weight="700" fill="#FFFFFF">Criar cupom promocional</text>
+  <rect x="1070" y="522" width="412" height="52" rx="12" fill="#FFFFFF" stroke="#CBD5E1"/>
+  <text x="1276" y="556" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="19" font-weight="700" fill="#0F172A">Publicar campanha marketing</text>
+  <rect x="1070" y="586" width="412" height="52" rx="12" fill="#FFFFFF" stroke="#CBD5E1"/>
+  <text x="1276" y="620" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="19" font-weight="700" fill="#0F172A">Abrir central de suporte</text>
+
+  <rect x="1040" y="670" width="472" height="256" rx="18" fill="#FFFFFF" stroke="#E2E8F0"/>
+  <text x="1070" y="718" font-family="Inter, Arial, sans-serif" font-size="24" font-weight="700" fill="#0F172A">Status plataforma</text>
+  <text x="1070" y="764" font-family="Inter, Arial, sans-serif" font-size="20" font-weight="600" fill="#16A34A">API: operacional</text>
+  <text x="1070" y="800" font-family="Inter, Arial, sans-serif" font-size="20" font-weight="600" fill="#16A34A">Mercado Pago: conectado</text>
+  <text x="1070" y="836" font-family="Inter, Arial, sans-serif" font-size="20" font-weight="600" fill="#16A34A">Resend: ativo</text>
+  <text x="1070" y="872" font-family="Inter, Arial, sans-serif" font-size="20" font-weight="600" fill="#16A34A">Cron: executando</text>
+</svg>

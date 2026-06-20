@@ -1,0 +1,47 @@
+<svg width="1600" height="1000" viewBox="0 0 1600 1000" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1600" y2="1000" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#EEF2FF"/>
+      <stop offset="1" stop-color="#E0F2FE"/>
+    </linearGradient>
+    <linearGradient id="logoGrad" x1="0" y1="0" x2="120" y2="120" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#2563EB"/>
+      <stop offset="0.55" stop-color="#7C3AED"/>
+      <stop offset="1" stop-color="#06B6D4"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1600" height="1000" fill="url(#bg)"/>
+
+  <rect x="80" y="70" width="1440" height="860" rx="28" fill="#FFFFFF" stroke="#E5E7EB"/>
+  <rect x="80" y="70" width="1440" height="86" rx="28" fill="#F8FAFC"/>
+  <text x="170" y="126" font-family="Inter, Arial, sans-serif" font-size="28" font-weight="700" fill="#0F172A">Triggma</text>
+  <text x="1320" y="126" font-family="Inter, Arial, sans-serif" font-size="20" font-weight="500" fill="#334155">Teste gratis 14 dias</text>
+
+  <rect x="132" y="190" width="650" height="700" rx="24" fill="#F8FAFC"/>
+  <text x="186" y="305" font-family="Inter, Arial, sans-serif" font-size="64" font-weight="800" fill="#0F172A">Transforme clientes</text>
+  <text x="186" y="372" font-family="Inter, Arial, sans-serif" font-size="64" font-weight="800" fill="#0F172A">em promotores</text>
+  <text x="186" y="446" font-family="Inter, Arial, sans-serif" font-size="28" font-weight="500" fill="#475569">Indicacao, fidelizacao e recompensas</text>
+  <text x="186" y="488" font-family="Inter, Arial, sans-serif" font-size="28" font-weight="500" fill="#475569">em uma plataforma profissional.</text>
+
+  <rect x="850" y="210" width="620" height="640" rx="28" fill="#FFFFFF" stroke="#E5E7EB"/>
+  <rect x="908" y="260" width="120" height="120" rx="30" fill="url(#logoGrad)"/>
+  <rect x="938" y="302" width="60" height="14" rx="7" fill="#FFFFFF"/>
+  <rect x="960" y="302" width="16" height="56" rx="8" fill="#FFFFFF"/>
+  <path d="M930 350 L958 322 L976 340 L1002 314" stroke="#FFFFFF" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <text x="1055" y="318" font-family="Inter, Arial, sans-serif" font-size="42" font-weight="800" fill="#0F172A">Bem-vindo ao Triggma</text>
+  <text x="1055" y="360" font-family="Inter, Arial, sans-serif" font-size="22" font-weight="500" fill="#64748B">Login de assinante e equipe</text>
+
+  <rect x="908" y="430" width="504" height="74" rx="16" fill="#F8FAFC" stroke="#CBD5E1"/>
+  <text x="934" y="478" font-family="Inter, Arial, sans-serif" font-size="24" font-weight="500" fill="#94A3B8">Email</text>
+
+  <rect x="908" y="528" width="504" height="74" rx="16" fill="#F8FAFC" stroke="#CBD5E1"/>
+  <text x="934" y="576" font-family="Inter, Arial, sans-serif" font-size="24" font-weight="500" fill="#94A3B8">Senha</text>
+
+  <rect x="908" y="628" width="504" height="74" rx="16" fill="#2563EB"/>
+  <text x="1120" y="676" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="26" font-weight="700" fill="#FFFFFF">Entrar</text>
+
+  <rect x="908" y="724" width="504" height="74" rx="16" fill="#FFFFFF" stroke="#CBD5E1"/>
+  <text x="1160" y="772" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="24" font-weight="600" fill="#0F172A">Continuar com Google</text>
+</svg>
