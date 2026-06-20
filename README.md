@@ -20,6 +20,7 @@ Repositório da especificação oficial do MVP da Triggma, com foco em:
 - [Engenharia de links + QR Triggma (Lovable)](docs/ENGENHARIA_LINKS_QR_TRIGGMA_LOVABLE.md)
 - [Prompt Lovable: links + QR Triggma](docs/PROMPT_LOVABLE_ENGENHARIA_LINKS_QR_TRIGGMA.md)
 - [Prompt Lovable MVP completo Web + Android + iOS](docs/PROMPT_LOVABLE_MVP_COMPLETO_WEB_ANDROID_IOS_TRIGGMA.md)
+- [Prompt Lovable: remover vestigios Lovable (OAuth/branding)](docs/PROMPT_LOVABLE_FIX_BRANDING_OAUTH_NO_LOVABLE_TRIGGMA.md)
 - [Arquitetura SaaS multi-tenant](docs/arquitetura-multi-tenant.md)
 - [Modelo de dados MVP](docs/modelo-dados-mvp.md)
 - [Plano de testes MVP](docs/plano-testes-mvp.md)
