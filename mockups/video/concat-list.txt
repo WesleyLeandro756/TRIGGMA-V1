@@ -1,0 +1,6 @@
+file '/workspace/mockups/video/00-intro.mp4'
+file '/workspace/mockups/video/01-login.mp4'
+file '/workspace/mockups/video/02-assinante.mp4'
+file '/workspace/mockups/video/03-admin.mp4'
+file '/workspace/mockups/video/04-suite.mp4'
+file '/workspace/mockups/video/05-arquitetura.mp4'

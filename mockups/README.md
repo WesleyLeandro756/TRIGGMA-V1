@@ -14,6 +14,11 @@ Mockups visuais para validacao do produto Triggma apos go-live.
 
 Abra os arquivos em `mockups/png/` para comparar com o site publicado.
 
+## Video demonstrativo
+
+- `video/triggma-web-demo-completo.mp4`
+- `video/README.md`
+
 ## Objetivo
 
 Comparar visualmente com o que esta no ar e alinhar identidade:
