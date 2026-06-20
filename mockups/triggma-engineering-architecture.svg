@@ -1,0 +1,41 @@
+<svg width="2400" height="1500" viewBox="0 0 2400 1500" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="2400" height="1500" fill="#F8FAFC"/>
+  <text x="80" y="84" font-family="Inter, Arial, sans-serif" font-size="52" font-weight="800" fill="#0F172A">Triggma - Desenho de Engenharia (Arquitetura Web MVP)</text>
+
+  <!-- Presentation -->
+  <rect x="80" y="140" width="2240" height="180" rx="20" fill="#DBEAFE" stroke="#93C5FD"/>
+  <text x="110" y="190" font-family="Inter, Arial, sans-serif" font-size="30" font-weight="700" fill="#1E3A8A">Camada de apresentacao</text>
+  <text x="110" y="230" font-family="Inter, Arial, sans-serif" font-size="22" fill="#1E3A8A">Landing | Auth | Dashboard Empresa | Portal Cliente | Admin | Billing | Downloads</text>
+  <text x="110" y="266" font-family="Inter, Arial, sans-serif" font-size="20" fill="#1E3A8A">Responsivo: Desktop, Tablet, Mobile (deteccao por dispositivo + CTA de instalacao)</text>
+
+  <!-- API -->
+  <rect x="80" y="360" width="2240" height="220" rx="20" fill="#EDE9FE" stroke="#C4B5FD"/>
+  <text x="110" y="412" font-family="Inter, Arial, sans-serif" font-size="30" font-weight="700" fill="#4C1D95">Camada de aplicacao / API</text>
+  <text x="110" y="452" font-family="Inter, Arial, sans-serif" font-size="22" fill="#4C1D95">Auth + RBAC | Clientes | Campanhas | Links/QR | Leads | Conversoes | Pontos | Resgates | Assinatura</text>
+  <text x="110" y="488" font-family="Inter, Arial, sans-serif" font-size="22" fill="#4C1D95">Endpoints publicos: /r/:code, /c/:slug, /g/:slug, /api/public/mp-webhook, /api/public/email/trial-reminders</text>
+  <text x="110" y="524" font-family="Inter, Arial, sans-serif" font-size="20" fill="#4C1D95">Regras: idempotencia, validacao server-side, auditoria e anti-spam</text>
+
+  <!-- Data -->
+  <rect x="80" y="620" width="2240" height="220" rx="20" fill="#DCFCE7" stroke="#86EFAC"/>
+  <text x="110" y="672" font-family="Inter, Arial, sans-serif" font-size="30" font-weight="700" fill="#166534">Camada de dados</text>
+  <text x="110" y="712" font-family="Inter, Arial, sans-serif" font-size="22" fill="#166534">Tenants | Users | Customers | Campaigns | ReferralLinks | Leads | Conversions | PointsLedger | Rewards | Redemptions</text>
+  <text x="110" y="748" font-family="Inter, Arial, sans-serif" font-size="22" fill="#166534">Subscriptions | Payments | LinkEvents | Coupons | AuditLogs | TrialReminders</text>
+  <text x="110" y="784" font-family="Inter, Arial, sans-serif" font-size="20" fill="#166534">Isolamento: tenant_id em todas as entidades + unicidade por tenant + politicas de acesso</text>
+
+  <!-- Integrations -->
+  <rect x="80" y="880" width="2240" height="220" rx="20" fill="#FEF3C7" stroke="#FCD34D"/>
+  <text x="110" y="932" font-family="Inter, Arial, sans-serif" font-size="30" font-weight="700" fill="#92400E">Integracoes externas</text>
+  <text x="110" y="972" font-family="Inter, Arial, sans-serif" font-size="22" fill="#92400E">Mercado Pago: checkout, status e webhook de assinatura</text>
+  <text x="110" y="1008" font-family="Inter, Arial, sans-serif" font-size="22" fill="#92400E">Resend: emails transacionais e lembretes de trial D-7 / D-3 / D-1 / expirado</text>
+  <text x="110" y="1044" font-family="Inter, Arial, sans-serif" font-size="22" fill="#92400E">Google OAuth: login social com branding Triggma</text>
+  <text x="110" y="1080" font-family="Inter, Arial, sans-serif" font-size="20" fill="#92400E">Observacao: branding do consentimento Google depende de configuracao no Google Cloud Console</text>
+
+  <!-- Ops -->
+  <rect x="80" y="1140" width="2240" height="280" rx="20" fill="#FFFFFF" stroke="#D1D5DB"/>
+  <text x="110" y="1194" font-family="Inter, Arial, sans-serif" font-size="30" font-weight="700" fill="#0F172A">Operacao, seguranca e escala</text>
+  <text x="110" y="1236" font-family="Inter, Arial, sans-serif" font-size="22" fill="#334155">- Performance: cache, paginacao, debounce, lazy loading, assets otimizados</text>
+  <text x="110" y="1272" font-family="Inter, Arial, sans-serif" font-size="22" fill="#334155">- Seguranca: HTTPS, rate limit, validacao de input, logs estruturados, auditoria</text>
+  <text x="110" y="1308" font-family="Inter, Arial, sans-serif" font-size="22" fill="#334155">- Billing: trial 14 dias, modo leitura apos expiracao, desbloqueio automatico apos pagamento</text>
+  <text x="110" y="1344" font-family="Inter, Arial, sans-serif" font-size="22" fill="#334155">- Escala comercial: planos configuraveis, suporte, FAQ, marketing por segmento</text>
+  <text x="110" y="1380" font-family="Inter, Arial, sans-serif" font-size="20" fill="#64748B">Status esperado de producao: pronto para lancamento apos checklist manual externo (OAuth Google, DNS Resend e QA fisico)</text>
+</svg>

@@ -7,6 +7,8 @@ Mockups visuais para validacao do produto Triggma apos go-live.
 - `triggma-login-screen.svg` / `png/triggma-login-screen.png`
 - `triggma-assinante-screen.svg` / `png/triggma-assinante-screen.png`
 - `triggma-admin-screen.svg` / `png/triggma-admin-screen.png`
+- `triggma-web-suite-overview.svg` / `png/triggma-web-suite-overview.png`
+- `triggma-engineering-architecture.svg` / `png/triggma-engineering-architecture.png`
 
 ## Visualizacao rapida (PNG)
 

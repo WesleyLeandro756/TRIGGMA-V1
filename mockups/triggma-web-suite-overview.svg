@@ -1,0 +1,167 @@
+<svg width="2400" height="1700" viewBox="0 0 2400 1700" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bgGrad" x1="0" y1="0" x2="2400" y2="1700" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#EEF2FF"/>
+      <stop offset="1" stop-color="#E0F2FE"/>
+    </linearGradient>
+    <linearGradient id="logoGrad" x1="0" y1="0" x2="120" y2="120" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#2563EB"/>
+      <stop offset="0.55" stop-color="#7C3AED"/>
+      <stop offset="1" stop-color="#06B6D4"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="2400" height="1700" fill="url(#bgGrad)"/>
+
+  <text x="90" y="90" font-family="Inter, Arial, sans-serif" font-size="56" font-weight="800" fill="#0F172A">Triggma Web Suite - Todas as telas e funcoes (MVP)</text>
+  <text x="90" y="132" font-family="Inter, Arial, sans-serif" font-size="24" font-weight="500" fill="#475569">Visao geral para validacao de produto e navegacao do sistema</text>
+
+  <rect x="90" y="170" width="2220" height="120" rx="20" fill="#FFFFFF" stroke="#D1D5DB"/>
+  <rect x="122" y="198" width="72" height="72" rx="18" fill="url(#logoGrad)"/>
+  <text x="214" y="245" font-family="Inter, Arial, sans-serif" font-size="38" font-weight="800" fill="#0F172A">TRIGGMA</text>
+  <text x="470" y="245" font-family="Inter, Arial, sans-serif" font-size="22" font-weight="600" fill="#334155">Fluxo principal:</text>
+  <text x="650" y="245" font-family="Inter, Arial, sans-serif" font-size="22" font-weight="500" fill="#334155">Landing -> Login -> Dashboard -> Clientes/Campanhas -> Leads -> Conversoes -> Pontos -> Resgates -> Assinatura</text>
+
+  <!-- Row 1 -->
+  <g transform="translate(90 330)">
+    <rect width="520" height="280" rx="18" fill="#FFFFFF" stroke="#CBD5E1"/>
+    <rect x="0" y="0" width="520" height="44" rx="18" fill="#F8FAFC"/>
+    <text x="22" y="30" font-family="Inter, Arial, sans-serif" font-size="20" font-weight="700" fill="#0F172A">1. Landing / Home Marketing</text>
+    <text x="24" y="82" font-family="Inter, Arial, sans-serif" font-size="16" font-weight="600" fill="#1D4ED8">Funcoes:</text>
+    <text x="24" y="108" font-family="Inter, Arial, sans-serif" font-size="15" fill="#334155">- Hero com CTA teste gratis 14 dias</text>
+    <text x="24" y="130" font-family="Inter, Arial, sans-serif" font-size="15" fill="#334155">- Carrossel infinito de funcionalidades</text>
+    <text x="24" y="152" font-family="Inter, Arial, sans-serif" font-size="15" fill="#334155">- Planos, FAQ, prova social, contato</text>
+    <text x="24" y="174" font-family="Inter, Arial, sans-serif" font-size="15" fill="#334155">- CTA para auth e assinatura</text>
+    <rect x="24" y="198" width="220" height="46" rx="12" fill="#2563EB"/>
+    <text x="134" y="227" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="16" font-weight="700" fill="#FFFFFF">Comecar teste</text>
+  </g>
+
+  <g transform="translate(650 330)">
+    <rect width="520" height="280" rx="18" fill="#FFFFFF" stroke="#CBD5E1"/>
+    <rect x="0" y="0" width="520" height="44" rx="18" fill="#F8FAFC"/>
+    <text x="22" y="30" font-family="Inter, Arial, sans-serif" font-size="20" font-weight="700" fill="#0F172A">2. Login / Auth Triggma</text>
+    <text x="24" y="82" font-family="Inter, Arial, sans-serif" font-size="16" font-weight="600" fill="#1D4ED8">Funcoes:</text>
+    <text x="24" y="108" font-family="Inter, Arial, sans-serif" font-size="15" fill="#334155">- Login email e senha</text>
+    <text x="24" y="130" font-family="Inter, Arial, sans-serif" font-size="15" fill="#334155">- Login Google (branding Triggma)</text>
+    <text x="24" y="152" font-family="Inter, Arial, sans-serif" font-size="15" fill="#334155">- Recuperacao de senha segura</text>
+    <text x="24" y="174" font-family="Inter, Arial, sans-serif" font-size="15" fill="#334155">- Redirecionamento por perfil</text>
+    <rect x="24" y="198" width="220" height="46" rx="12" fill="#0F172A"/>
+    <text x="134" y="227" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="16" font-weight="700" fill="#FFFFFF">Entrar no painel</text>
+  </g>
+
+  <g transform="translate(1210 330)">
+    <rect width="520" height="280" rx="18" fill="#FFFFFF" stroke="#CBD5E1"/>
+    <rect x="0" y="0" width="520" height="44" rx="18" fill="#F8FAFC"/>
+    <text x="22" y="30" font-family="Inter, Arial, sans-serif" font-size="20" font-weight="700" fill="#0F172A">3. Dashboard Empresa</text>
+    <text x="24" y="82" font-family="Inter, Arial, sans-serif" font-size="16" font-weight="600" fill="#1D4ED8">Funcoes:</text>
+    <text x="24" y="108" font-family="Inter, Arial, sans-serif" font-size="15" fill="#334155">- KPIs de clientes, indicacoes, conversoes</text>
+    <text x="24" y="130" font-family="Inter, Arial, sans-serif" font-size="15" fill="#334155">- Graficos de crescimento e engajamento</text>
+    <text x="24" y="152" font-family="Inter, Arial, sans-serif" font-size="15" fill="#334155">- Alertas de trial/assinatura</text>
+    <text x="24" y="174" font-family="Inter, Arial, sans-serif" font-size="15" fill="#334155">- Acoes rapidas para campanha e links</text>
+    <rect x="24" y="198" width="230" height="46" rx="12" fill="#7C3AED"/>
+    <text x="139" y="227" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="16" font-weight="700" fill="#FFFFFF">Criar campanha</text>
+  </g>
+
+  <g transform="translate(1770 330)">
+    <rect width="540" height="280" rx="18" fill="#FFFFFF" stroke="#CBD5E1"/>
+    <rect x="0" y="0" width="540" height="44" rx="18" fill="#F8FAFC"/>
+    <text x="22" y="30" font-family="Inter, Arial, sans-serif" font-size="20" font-weight="700" fill="#0F172A">4. Clientes + Links + QR</text>
+    <text x="24" y="82" font-family="Inter, Arial, sans-serif" font-size="16" font-weight="600" fill="#1D4ED8">Funcoes:</text>
+    <text x="24" y="108" font-family="Inter, Arial, sans-serif" font-size="15" fill="#334155">- Cadastro manual e importacao CSV</text>
+    <text x="24" y="130" font-family="Inter, Arial, sans-serif" font-size="15" fill="#334155">- Link unico /r/{codigo} automatico</text>
+    <text x="24" y="152" font-family="Inter, Arial, sans-serif" font-size="15" fill="#334155">- Download QR PNG/SVG com logo Triggma</text>
+    <text x="24" y="174" font-family="Inter, Arial, sans-serif" font-size="15" fill="#334155">- Busca, filtros e historico</text>
+    <rect x="24" y="198" width="230" height="46" rx="12" fill="#06B6D4"/>
+    <text x="139" y="227" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="16" font-weight="700" fill="#FFFFFF">Copiar link + QR</text>
+  </g>
+
+  <!-- Row 2 -->
+  <g transform="translate(90 650)">
+    <rect width="520" height="280" rx="18" fill="#FFFFFF" stroke="#CBD5E1"/>
+    <rect x="0" y="0" width="520" height="44" rx="18" fill="#F8FAFC"/>
+    <text x="22" y="30" font-family="Inter, Arial, sans-serif" font-size="20" font-weight="700" fill="#0F172A">5. Campanhas</text>
+    <text x="24" y="82" font-family="Inter, Arial, sans-serif" font-size="16" font-weight="600" fill="#1D4ED8">Funcoes:</text>
+    <text x="24" y="108" font-family="Inter, Arial, sans-serif" font-size="15" fill="#334155">- Criar e editar campanha</text>
+    <text x="24" y="130" font-family="Inter, Arial, sans-serif" font-size="15" fill="#334155">- Definir pontos por conversao</text>
+    <text x="24" y="152" font-family="Inter, Arial, sans-serif" font-size="15" fill="#334155">- Link /c/{slug} + QR da campanha</text>
+    <text x="24" y="174" font-family="Inter, Arial, sans-serif" font-size="15" fill="#334155">- Status: draft, ativa, pausada, encerrada</text>
+  </g>
+
+  <g transform="translate(650 650)">
+    <rect width="520" height="280" rx="18" fill="#FFFFFF" stroke="#CBD5E1"/>
+    <rect x="0" y="0" width="520" height="44" rx="18" fill="#F8FAFC"/>
+    <text x="22" y="30" font-family="Inter, Arial, sans-serif" font-size="20" font-weight="700" fill="#0F172A">6. Leads e Conversoes</text>
+    <text x="24" y="82" font-family="Inter, Arial, sans-serif" font-size="16" font-weight="600" fill="#1D4ED8">Funcoes:</text>
+    <text x="24" y="108" font-family="Inter, Arial, sans-serif" font-size="15" fill="#334155">- Captura publica (nome, email, WhatsApp)</text>
+    <text x="24" y="130" font-family="Inter, Arial, sans-serif" font-size="15" fill="#334155">- Funil: novo, contatado, convertido, perdido</text>
+    <text x="24" y="152" font-family="Inter, Arial, sans-serif" font-size="15" fill="#334155">- Conversao manual com idempotencia</text>
+    <text x="24" y="174" font-family="Inter, Arial, sans-serif" font-size="15" fill="#334155">- Historico e auditoria por lead</text>
+  </g>
+
+  <g transform="translate(1210 650)">
+    <rect width="520" height="280" rx="18" fill="#FFFFFF" stroke="#CBD5E1"/>
+    <rect x="0" y="0" width="520" height="44" rx="18" fill="#F8FAFC"/>
+    <text x="22" y="30" font-family="Inter, Arial, sans-serif" font-size="20" font-weight="700" fill="#0F172A">7. Pontos e Recompensas</text>
+    <text x="24" y="82" font-family="Inter, Arial, sans-serif" font-size="16" font-weight="600" fill="#1D4ED8">Funcoes:</text>
+    <text x="24" y="108" font-family="Inter, Arial, sans-serif" font-size="15" fill="#334155">- Credito automatico por conversao</text>
+    <text x="24" y="130" font-family="Inter, Arial, sans-serif" font-size="15" fill="#334155">- Extrato de pontos (credito/debito)</text>
+    <text x="24" y="152" font-family="Inter, Arial, sans-serif" font-size="15" fill="#334155">- Catalogo de recompensas</text>
+    <text x="24" y="174" font-family="Inter, Arial, sans-serif" font-size="15" fill="#334155">- Resgate com voucher + QR + codigo unico</text>
+  </g>
+
+  <g transform="translate(1770 650)">
+    <rect width="540" height="280" rx="18" fill="#FFFFFF" stroke="#CBD5E1"/>
+    <rect x="0" y="0" width="540" height="44" rx="18" fill="#F8FAFC"/>
+    <text x="22" y="30" font-family="Inter, Arial, sans-serif" font-size="20" font-weight="700" fill="#0F172A">8. Assinatura e Checkout</text>
+    <text x="24" y="82" font-family="Inter, Arial, sans-serif" font-size="16" font-weight="600" fill="#1D4ED8">Funcoes:</text>
+    <text x="24" y="108" font-family="Inter, Arial, sans-serif" font-size="15" fill="#334155">- Trial 14 dias + sem fidelidade</text>
+    <text x="24" y="130" font-family="Inter, Arial, sans-serif" font-size="15" fill="#334155">- Billing com CPF/CNPJ</text>
+    <text x="24" y="152" font-family="Inter, Arial, sans-serif" font-size="15" fill="#334155">- Checkout Mercado Pago</text>
+    <text x="24" y="174" font-family="Inter, Arial, sans-serif" font-size="15" fill="#334155">- Retorno success/pending/failure + webhook</text>
+  </g>
+
+  <!-- Row 3 -->
+  <g transform="translate(90 970)">
+    <rect width="740" height="300" rx="18" fill="#FFFFFF" stroke="#CBD5E1"/>
+    <rect x="0" y="0" width="740" height="44" rx="18" fill="#F8FAFC"/>
+    <text x="22" y="30" font-family="Inter, Arial, sans-serif" font-size="20" font-weight="700" fill="#0F172A">9. Portal do Cliente</text>
+    <text x="24" y="82" font-family="Inter, Arial, sans-serif" font-size="16" font-weight="600" fill="#1D4ED8">Funcoes:</text>
+    <text x="24" y="108" font-family="Inter, Arial, sans-serif" font-size="15" fill="#334155">- Pontos atuais e historico</text>
+    <text x="24" y="130" font-family="Inter, Arial, sans-serif" font-size="15" fill="#334155">- Meu link e meu QR</text>
+    <text x="24" y="152" font-family="Inter, Arial, sans-serif" font-size="15" fill="#334155">- Ranking (bronze, prata, ouro, diamante)</text>
+    <text x="24" y="174" font-family="Inter, Arial, sans-serif" font-size="15" fill="#334155">- Resgate e status de vouchers</text>
+    <rect x="24" y="204" width="260" height="48" rx="12" fill="#16A34A"/>
+    <text x="154" y="235" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="17" font-weight="700" fill="#FFFFFF">Acessar portal cliente</text>
+  </g>
+
+  <g transform="translate(860 970)">
+    <rect width="740" height="300" rx="18" fill="#FFFFFF" stroke="#CBD5E1"/>
+    <rect x="0" y="0" width="740" height="44" rx="18" fill="#F8FAFC"/>
+    <text x="22" y="30" font-family="Inter, Arial, sans-serif" font-size="20" font-weight="700" fill="#0F172A">10. Admin Triggma</text>
+    <text x="24" y="82" font-family="Inter, Arial, sans-serif" font-size="16" font-weight="600" fill="#1D4ED8">Funcoes:</text>
+    <text x="24" y="108" font-family="Inter, Arial, sans-serif" font-size="15" fill="#334155">- Gestao de tenants, planos e status</text>
+    <text x="24" y="130" font-family="Inter, Arial, sans-serif" font-size="15" fill="#334155">- Cupons/promocoes e suporte operacional</text>
+    <text x="24" y="152" font-family="Inter, Arial, sans-serif" font-size="15" fill="#334155">- Conteudo Triggma Marketing</text>
+    <text x="24" y="174" font-family="Inter, Arial, sans-serif" font-size="15" fill="#334155">- Auditoria, logs e configuracoes globais</text>
+  </g>
+
+  <g transform="translate(1630 970)">
+    <rect width="680" height="300" rx="18" fill="#FFFFFF" stroke="#CBD5E1"/>
+    <rect x="0" y="0" width="680" height="44" rx="18" fill="#F8FAFC"/>
+    <text x="22" y="30" font-family="Inter, Arial, sans-serif" font-size="20" font-weight="700" fill="#0F172A">11. Downloads e Instalacao</text>
+    <text x="24" y="82" font-family="Inter, Arial, sans-serif" font-size="16" font-weight="600" fill="#1D4ED8">Funcoes:</text>
+    <text x="24" y="108" font-family="Inter, Arial, sans-serif" font-size="15" fill="#334155">- Detecta dispositivo automaticamente</text>
+    <text x="24" y="130" font-family="Inter, Arial, sans-serif" font-size="15" fill="#334155">- Android (APK direto), iOS (PWA/TestFlight), Desktop (PWA)</text>
+    <text x="24" y="152" font-family="Inter, Arial, sans-serif" font-size="15" fill="#334155">- Exibe versao/build atual</text>
+    <text x="24" y="174" font-family="Inter, Arial, sans-serif" font-size="15" fill="#334155">- Links editaveis no admin</text>
+  </g>
+
+  <!-- Footer engineering note -->
+  <rect x="90" y="1320" width="2220" height="300" rx="20" fill="#FFFFFF" stroke="#D1D5DB"/>
+  <text x="122" y="1372" font-family="Inter, Arial, sans-serif" font-size="30" font-weight="800" fill="#0F172A">Engenharia resumida (Web MVP)</text>
+  <text x="122" y="1410" font-family="Inter, Arial, sans-serif" font-size="18" fill="#334155">- Arquitetura SaaS multi-tenant com isolamento por tenant_id</text>
+  <text x="122" y="1440" font-family="Inter, Arial, sans-serif" font-size="18" fill="#334155">- Auth por perfis: Super Admin, Empresa, Cliente</text>
+  <text x="122" y="1470" font-family="Inter, Arial, sans-serif" font-size="18" fill="#334155">- Integracoes: Mercado Pago (assinatura), Resend (emails), Google OAuth (social login)</text>
+  <text x="122" y="1500" font-family="Inter, Arial, sans-serif" font-size="18" fill="#334155">- Seguranca: validacao server-side, rate limit, auditoria e anti-duplicidade</text>
+  <text x="122" y="1530" font-family="Inter, Arial, sans-serif" font-size="18" fill="#334155">- Escalabilidade: cache, paginacao, lazy load, jobs de lembrete e monitoramento de eventos</text>
+</svg>
