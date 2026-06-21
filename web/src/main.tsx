@@ -8,6 +8,7 @@ import { CompanyApp } from "./pages/CompanyApp";
 import { Referral } from "./pages/Referral";
 import { PortalAuth } from "./pages/PortalAuth";
 import { Portal } from "./pages/Portal";
+import { Download } from "./pages/Download";
 
 const router = createBrowserRouter([
   { path: "/", element: <Landing /> },
@@ -16,6 +17,7 @@ const router = createBrowserRouter([
   { path: "/r/:slug", element: <Referral /> },
   { path: "/portal/login", element: <PortalAuth /> },
   { path: "/portal", element: <Portal /> },
+  { path: "/download", element: <Download /> },
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
@@ -23,3 +25,9 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
     <RouterProvider router={router} />
   </React.StrictMode>,
 );
+
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", () => {
+    navigator.serviceWorker.register("/sw.js").catch(() => {});
+  });
+}

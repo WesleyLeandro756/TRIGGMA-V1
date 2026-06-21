@@ -11,6 +11,7 @@ export function CompanyAuth() {
   );
   const [companyName, setCompanyName] = useState("");
   const [name, setName] = useState("");
+  const [document, setDocument] = useState("");
   const [email, setEmail] = useState("admin@demo.com");
   const [password, setPassword] = useState("triggma123");
   const [error, setError] = useState("");
@@ -23,16 +24,20 @@ export function CompanyAuth() {
     try {
       const path = mode === "register" ? "/auth/register-company" : "/auth/login";
       const body =
-        mode === "register" ? { companyName, name, email, password } : { email, password };
+        mode === "register"
+          ? { companyName, name, document, email, password }
+          : { email, password };
       const res = await api.post<{ token: string }>(path, body);
       setToken("company", res.token);
       navigate("/app");
     } catch (err) {
-      setError(
-        (err as Error).message === "invalid_credentials"
-          ? "E-mail ou senha inválidos."
-          : "Não foi possível concluir. Verifique os dados.",
-      );
+      const code = (err as Error).message;
+      const messages: Record<string, string> = {
+        invalid_credentials: "E-mail ou senha inválidos.",
+        invalid_document: "CNPJ/CPF inválido. Confira os dígitos.",
+        document_in_use: "Este CNPJ/CPF já está cadastrado.",
+      };
+      setError(messages[code] ?? "Não foi possível concluir. Verifique os dados.");
     } finally {
       setLoading(false);
     }
@@ -58,6 +63,7 @@ export function CompanyAuth() {
             <>
               <Field label="Nome da empresa" value={companyName} onChange={setCompanyName} placeholder="Minha Loja" />
               <Field label="Seu nome" value={name} onChange={setName} placeholder="Maria Silva" />
+              <Field label="CNPJ ou CPF" value={document} onChange={setDocument} placeholder="00.000.000/0001-00" />
             </>
           )}
           <Field label="E-mail" type="email" value={email} onChange={setEmail} placeholder="voce@empresa.com" />

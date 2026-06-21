@@ -31,6 +31,7 @@ export function initDb() {
       id TEXT PRIMARY KEY,
       name TEXT NOT NULL,
       slug TEXT NOT NULL UNIQUE,
+      document TEXT,
       plan TEXT NOT NULL DEFAULT 'free',
       status TEXT NOT NULL DEFAULT 'active',
       created_at TEXT NOT NULL DEFAULT (datetime('now'))
@@ -141,6 +142,12 @@ export function initDb() {
       used_at TEXT
     );
   `);
+
+  // Lightweight migration: add tenants.document to pre-existing databases.
+  const cols = db.prepare("PRAGMA table_info(tenants)").all() as { name: string }[];
+  if (!cols.some((c) => c.name === "document")) {
+    db.exec("ALTER TABLE tenants ADD COLUMN document TEXT");
+  }
 
   const count = db.prepare("SELECT COUNT(*) AS n FROM tenants").get() as {
     n: number;

@@ -10,6 +10,7 @@ import {
   newVoucherCode,
 } from "./db.js";
 import { requireAuth, signToken } from "./auth.js";
+import { isValidDocument, onlyDigits } from "./validators.js";
 
 initDb();
 
@@ -75,9 +76,17 @@ app.get("/api/health", (_req, res) => res.json({ ok: true }));
 /* ----------------------------- Auth ----------------------------- */
 
 app.post("/api/auth/register-company", (req, res) => {
-  const { companyName, name, email, password } = req.body ?? {};
+  const { companyName, name, email, password, document } = req.body ?? {};
   if (!companyName || !name || !email || !password) {
     return res.status(400).json({ error: "missing_fields" });
+  }
+  // CNPJ/CPF is required and must be valid (check digits).
+  if (!document || !isValidDocument(document)) {
+    return res.status(400).json({ error: "invalid_document" });
+  }
+  const doc = onlyDigits(document);
+  if (db.prepare("SELECT 1 FROM tenants WHERE document = ?").get(doc)) {
+    return res.status(409).json({ error: "document_in_use" });
   }
   let slug = slugify(companyName) || "empresa";
   let suffix = 0;
@@ -90,8 +99,8 @@ app.post("/api/auth/register-company", (req, res) => {
 
   const tenantId = newId();
   db.prepare(
-    "INSERT INTO tenants (id, name, slug, plan, status) VALUES (?, ?, ?, 'free', 'active')",
-  ).run(tenantId, companyName, slug);
+    "INSERT INTO tenants (id, name, slug, document, plan, status) VALUES (?, ?, ?, ?, 'free', 'active')",
+  ).run(tenantId, companyName, slug, doc);
   const userId = newId();
   db.prepare(
     `INSERT INTO tenant_users (id, tenant_id, name, email, password_hash, role)

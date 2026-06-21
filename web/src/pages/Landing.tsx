@@ -46,6 +46,9 @@ export function Landing() {
         <div className="mx-auto flex max-w-6xl items-center justify-between px-5 py-4">
           <Logo size={28} />
           <div className="flex items-center gap-3 text-sm font-semibold">
+            <Link to="/download" className="hidden text-slate-600 hover:text-brand-ink sm:block">
+              Baixar app
+            </Link>
             <Link to="/portal/login" className="hidden text-slate-600 hover:text-brand-ink sm:block">
               Portal do cliente
             </Link>

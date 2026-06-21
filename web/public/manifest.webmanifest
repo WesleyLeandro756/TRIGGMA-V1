@@ -1,0 +1,19 @@
+{
+  "name": "Triggma — Indique e ganhe",
+  "short_name": "Triggma",
+  "description": "Indique, ganhe pontos e troque por recompensas.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#0B1220",
+  "theme_color": "#2563EB",
+  "lang": "pt-BR",
+  "icons": [
+    {
+      "src": "/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

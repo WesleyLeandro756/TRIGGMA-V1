@@ -196,20 +196,32 @@ async function main() {
     );
     check("customer edited", editedCustomer.status === 200 && editedCustomer.body.name === "Cliente E2E Renomeado");
 
-    // 15. Plan limit enforcement on a fresh FREE tenant (1 active campaign allowed)
+    // 15. CNPJ/CPF validation on company signup
+    const badDoc = await http("POST", "/auth/register-company", {
+      companyName: "Empresa Inválida",
+      name: "Dono",
+      email: `baddoc.${Date.now()}@example.com`,
+      password: "secret123",
+      document: "11.111.111/1111-11",
+    });
+    check("invalid CNPJ rejected on signup", badDoc.status === 400 && badDoc.body.error === "invalid_document");
+
+    // 16. Plan limit enforcement on a fresh FREE tenant (1 active campaign allowed)
     const reg = await http("POST", "/auth/register-company", {
       companyName: "Empresa Free E2E",
       name: "Dono",
       email: `free.e2e.${Date.now()}@example.com`,
       password: "secret123",
+      document: "11.222.333/0001-81",
     });
+    check("valid CNPJ accepted on signup", reg.status === 200 && !!reg.body.token);
     const freeToken = reg.body.token as string;
     const firstCampaign = await http("POST", "/campaigns", { name: "C1", status: "active" }, freeToken);
     check("free tenant: first active campaign allowed", firstCampaign.status === 201);
     const secondCampaign = await http("POST", "/campaigns", { name: "C2", status: "active" }, freeToken);
     check("free tenant: second active campaign blocked by plan limit", secondCampaign.status === 403 && secondCampaign.body.error === "plan_limit");
 
-    // 16. Auth enforcement
+    // 17. Auth enforcement
     const noAuth = await http("GET", "/dashboard");
     check("dashboard requires auth", noAuth.status === 401);
 
