@@ -1,0 +1,21 @@
+{
+  "name": "triggma-v1",
+  "private": true,
+  "version": "1.0.0",
+  "description": "TRIGGMA Growth - referral & loyalty SaaS MVP (web + app)",
+  "workspaces": [
+    "server",
+    "web"
+  ],
+  "scripts": {
+    "dev": "concurrently -n server,web -c blue,magenta \"npm:dev:server\" \"npm:dev:web\"",
+    "dev:server": "npm --workspace server run dev",
+    "dev:web": "npm --workspace web run dev",
+    "build": "npm --workspace web run build",
+    "test": "npm --workspace server run test",
+    "lint": "npm --workspace web run lint"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.0"
+  }
+}
