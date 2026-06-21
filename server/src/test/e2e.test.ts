@@ -115,8 +115,8 @@ async function main() {
       await http("GET", "/customer/me", undefined, me.body.token)
     ).body.customer.points_balance as number;
     check(
-      "points credited on conversion (+100)",
-      afterBalance === beforeBalance + 100,
+      "points credited on conversion (+50)",
+      afterBalance === beforeBalance + 50,
     );
 
     // 9. Customer redeems a reward (Cafe gratis = 200 pts)

@@ -8,7 +8,7 @@ interface Me {
   customer: { id: string; name: string; points_balance: number; referral_code: string };
   tenant: { name: string; slug: string };
   referralSlug: string | null;
-  referrals: { name: string; status: string; converted_at: string | null }[];
+  referrals: { name: string; status: string; converted_at: string | null; points: number }[];
 }
 interface Reward {
   id: string;
@@ -157,7 +157,7 @@ export function Portal() {
                         </div>
                       </div>
                       <span className="rounded-full bg-emerald-100 px-2.5 py-1 text-xs font-bold text-emerald-700">
-                        +50 pts
+                        +{r.points} pts
                       </span>
                     </div>
                   ))}

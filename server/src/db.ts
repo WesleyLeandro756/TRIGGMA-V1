@@ -168,8 +168,8 @@ function seed() {
   const campaigns = [
     {
       name: "Indique e Ganhe Voucher",
-      reward_description: "100 pontos por conversao",
-      points: 100,
+      reward_description: "50 pontos por conversao",
+      points: 50,
       goal: 200,
       conversions: 142,
       start: "2024-01-05",
@@ -256,15 +256,9 @@ function seed() {
      VALUES (?, ?, ?, ?, ?)`,
   ).run(newId(), tenantId, heroCustomerId, campaignIds[0], "joaosilva");
 
-  // Converted friends shown in the app mockup.
-  const friends = [
-    { name: "Pedro Henrique", date: "2024-05-15" },
-    { name: "Mariana Sousa", date: "2024-05-10" },
-    { name: "Lucas Almeida", date: "2024-05-02" },
-  ];
   const insLead = db.prepare(
-    `INSERT INTO leads (id, tenant_id, campaign_id, referrer_customer_id, name, status, source_link_slug, created_at)
-     VALUES (?, ?, ?, ?, ?, 'converted', 'joaosilva', ?)`,
+    `INSERT INTO leads (id, tenant_id, campaign_id, referrer_customer_id, name, whatsapp, email, status, source_link_slug, created_at)
+     VALUES (?, ?, ?, ?, ?, ?, ?, ?, 'joaosilva', ?)`,
   );
   const insConv = db.prepare(
     `INSERT INTO conversions (id, tenant_id, lead_id, campaign_id, referrer_customer_id, converted_at)
@@ -272,42 +266,96 @@ function seed() {
   );
   const insLedger = db.prepare(
     `INSERT INTO point_ledger (id, tenant_id, customer_id, type, origin, reference_id, points, description, created_at)
-     VALUES (?, ?, ?, 'credit', 'conversion', ?, 50, ?, ?)`,
+     VALUES (?, ?, ?, 'credit', ?, ?, ?, ?, ?)`,
   );
-  for (const f of friends) {
+  const insCustomer = db.prepare(
+    `INSERT INTO customers (id, tenant_id, name, email, referral_code, points_balance, created_at)
+     VALUES (?, ?, ?, ?, ?, ?, ?)`,
+  );
+
+  // Records a converted lead for a referrer, crediting the campaign points.
+  function addConversion(
+    referrerId: string,
+    campaignId: string,
+    points: number,
+    leadName: string,
+    date: string,
+  ) {
     const leadId = newId();
-    insLead.run(leadId, tenantId, campaignIds[0], heroCustomerId, f.name, f.date);
+    insLead.run(leadId, tenantId, campaignId, referrerId, leadName, null, null, "converted", date);
     const convId = newId();
-    insConv.run(convId, tenantId, leadId, campaignIds[0], heroCustomerId, f.date);
+    insConv.run(convId, tenantId, leadId, campaignId, referrerId, date);
     insLedger.run(
       newId(),
       tenantId,
-      heroCustomerId,
+      referrerId,
+      "conversion",
       convId,
-      `Conversao: ${f.name}`,
-      f.date,
+      points,
+      `Conversao: ${leadName}`,
+      date,
     );
   }
 
-  // A couple of open leads in the funnel for the company panel.
+  // Hero customer's named converted friends (shown in the app mockup, +50 pts each).
+  const friends = [
+    { name: "Pedro Henrique", date: "2024-05-15" },
+    { name: "Mariana Sousa", date: "2024-05-10" },
+    { name: "Lucas Almeida", date: "2024-05-02" },
+  ];
+  for (const f of friends) {
+    addConversion(heroCustomerId, campaignIds[0], 50, f.name, f.date);
+  }
+  // Welcome bonus so the ledger sum matches the displayed 350 pts balance (3*50 + 200).
+  insLedger.run(
+    newId(),
+    tenantId,
+    heroCustomerId,
+    "manual_adjustment",
+    null,
+    200,
+    "Bonus de boas-vindas",
+    "2024-04-30",
+  );
+
+  // Open leads in the funnel for the company panel (convertible in the demo).
   const insOpenLead = db.prepare(
     `INSERT INTO leads (id, tenant_id, campaign_id, referrer_customer_id, name, status, source_link_slug, created_at)
      VALUES (?, ?, ?, ?, ?, ?, 'joaosilva', datetime('now'))`,
   );
-  const openLeads = [
+  for (const l of [
     { name: "Ana Paula", status: "new" },
     { name: "Carlos Eduardo", status: "contacted" },
-  ];
-  for (const l of openLeads) {
-    insOpenLead.run(
-      newId(),
-      tenantId,
-      campaignIds[0],
-      heroCustomerId,
-      l.name,
-      l.status,
-    );
+  ]) {
+    insOpenLead.run(newId(), tenantId, campaignIds[0], heroCustomerId, l.name, l.status);
   }
+
+  // Historical conversions so campaign counters match the mockups (142 / 58 / 27).
+  // Each is attributed to its own generated promoter, keeping points consistent.
+  const targets = [142, 58, 27];
+  const existing = [friends.length, 0, 0];
+  const buildHistory = db.transaction(() => {
+    let n = 0;
+    for (let ci = 0; ci < campaigns.length; ci++) {
+      const extra = targets[ci] - existing[ci];
+      for (let i = 0; i < extra; i++) {
+        n += 1;
+        const custId = newId();
+        const points = campaigns[ci].points;
+        insCustomer.run(
+          custId,
+          tenantId,
+          `Promotor ${String(n).padStart(3, "0")}`,
+          `promotor${n}@demo.com`,
+          `P${String(n).padStart(5, "0")}`,
+          points,
+          "2024-06-01",
+        );
+        addConversion(custId, campaignIds[ci], points, `Indicado ${n}`, "2024-06-01");
+      }
+    }
+  });
+  buildHistory();
 
   console.log(
     `[seed] tenant=demo admin=admin@demo.com/triggma123 customer=JOAO01 (tenant slug: demo)`,

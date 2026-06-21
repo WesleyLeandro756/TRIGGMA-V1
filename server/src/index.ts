@@ -378,8 +378,10 @@ app.get("/api/customer/me", requireAuth("customer"), (req, res) => {
   }
   const referrals = db
     .prepare(
-      `SELECT l.name, l.status, c.converted_at
-       FROM leads l LEFT JOIN conversions c ON c.lead_id = l.id
+      `SELECT l.name, l.status, c.converted_at, cap.points_per_conversion AS points
+       FROM leads l
+       LEFT JOIN conversions c ON c.lead_id = l.id
+       LEFT JOIN campaigns cap ON cap.id = l.campaign_id
        WHERE l.tenant_id = ? AND l.referrer_customer_id = ?
        ORDER BY l.created_at DESC`,
     )

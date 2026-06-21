@@ -4,44 +4,41 @@
 
 ### What this repository is
 
-This repository is **not** a buildable/runnable software application. It is a
-**specification, branding, and design-assets repository** for the TRIGGMA SaaS
-product (a multi-tenant customer-growth / referral / loyalty platform). The
-actual application is intended to be generated/built on an external no-code
-platform ("Lovable Cloud"), driven by the prompts and specs stored here.
+TRIGGMA is a multi-tenant referral / loyalty / rewards SaaS. This repo contains
+a working **full-stack MVP** (web + responsive client app) plus the original
+product specs/branding/mockups (`docs/`, `branding/`, `mockups/`, mostly on the
+`cursor/triggma-mvp-spec-4348` branch). The MVP is implemented as an npm
+workspaces monorepo and is intended to be portable to Lovable's React stack.
 
-There is **no dependency manifest** (no `package.json`, lockfile,
-`requirements.txt`, etc.) anywhere in the git history, **no application source
-code**, **no backend/frontend service**, and **no test suite**. As a result
-there is nothing to install, no server to start, and no lint/build/test
-commands to run.
+### Workspaces
 
-### Repository contents
+- `server/` — Node + Express + TypeScript API run via `tsx` (no build step).
+  Storage is **SQLite via `better-sqlite3`** (file at `server/data/triggma.db`).
+  Implements the multi-tenant data model from `docs/modelo-dados-mvp.md`:
+  tenants, tenant users (JWT auth), customers, campaigns, referral links,
+  leads, conversions, point ledger, rewards, redemptions. Listens on `:4000`.
+- `web/` — Vite + React + TypeScript + Tailwind SPA on `:5173`. Routes: `/`
+  (landing site), `/login` (company auth), `/app` (company panel:
+  dashboard/campaigns/conversions/rewards/customers), `/r/:slug` (public
+  referral lead-capture), `/portal` + `/portal/login` (client portal with QR
+  code, WhatsApp share, rewards redemption).
 
-- `docs/` — MVP specifications, data model, multi-tenant architecture, test
-  plan, and "Lovable" prompts (mostly in Portuguese).
-- `branding/`, `branding/v2/`, `branding/v3/` — logo kits as `.svg` plus
-  exported `.png`.
-- `mockups/` — screen mockups (`.svg`/`.png`) and demo videos (`.mp4`).
-- `scripts/generate-triggma-v3-logos.mjs` — the only runnable code. A
-  zero-dependency Node.js ESM script (uses only built-in `fs`/`path`) that
-  writes SVG logo files to `branding/v3`.
+### Run / test / build (see `package.json` scripts)
 
-Note: most assets and the `scripts/` directory currently live on the
-`cursor/triggma-mvp-spec-4348` branch rather than `main`. `main` contains only
-this file and `README.md`.
+- `npm run dev` — runs **both** server and web concurrently. Use this for dev.
+- `npm test` — server end-to-end API test (`server/src/test/e2e.test.ts`).
+- `npm run lint` — ESLint on the web app.
+- `npm run build` — type-checks and builds the web app (production bundle).
 
-### Toolchain
+### Non-obvious caveats
 
-- Node.js (v22 verified) is preinstalled and is all that is needed to run the
-  asset-generation script: `node scripts/generate-triggma-v3-logos.mjs`
-  (writes to a hardcoded `/workspace/branding/v3` output dir).
-- No package installation step is required because there are no third-party
-  dependencies. The startup update script is a no-op unless/until a
-  `package.json` is added.
-
-### If real application code is added later
-
-If a future change introduces an actual app (e.g. a `package.json` for a web
-frontend/backend), update the startup update script to install its
-dependencies and document the dev/lint/test/build/run commands here.
+- The web dev server proxies `/api/*` to `http://localhost:4000` (see
+  `web/vite.config.ts`); the frontend has no hardcoded API base URL.
+- The SQLite DB is **auto-created and seeded only when empty** (first run). To
+  apply changes to seed data in `server/src/db.ts`, delete `server/data/` and
+  restart — editing seed code alone will not re-seed an existing DB. `npm test`
+  is unaffected (it uses an isolated temp DB via `TRIGGMA_DB`).
+- `server/data/` is git-ignored; never commit the local DB.
+- Demo credentials (from the seed): company panel `admin@demo.com` /
+  `triggma123`; client portal company `demo` + customer code `JOAO01`.
+- `better-sqlite3` installs from a prebuilt binary; no native toolchain needed.
