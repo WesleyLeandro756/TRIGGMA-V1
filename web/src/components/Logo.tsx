@@ -8,21 +8,16 @@ export function TriggmaMark({ size = 32 }: { size?: number }) {
         </linearGradient>
       </defs>
       <rect x="16" y="16" width="480" height="480" rx="120" fill="url(#trgMark)" />
-      {/* Top bar of the "T" */}
-      <rect x="120" y="120" width="272" height="56" rx="28" fill="#fff" />
-      {/* Vertical stem of the "T" */}
-      <rect x="150" y="176" width="56" height="210" rx="28" fill="#fff" />
+      {/* Top bar of the centered "T" */}
+      <rect x="130" y="128" width="252" height="54" rx="27" fill="#fff" />
+      {/* Centered vertical stem of the "T" */}
+      <rect x="228" y="182" width="56" height="200" rx="28" fill="#fff" />
       {/* Upward growth arrow crossing the stem */}
-      <path
-        d="M150 360 L330 232"
-        stroke="#fff"
-        strokeWidth="48"
-        strokeLinecap="round"
-      />
-      <path d="M286 214 h74 v74" stroke="#fff" strokeWidth="48" strokeLinecap="round" strokeLinejoin="round" fill="none" />
+      <path d="M150 356 L362 206" stroke="#fff" strokeWidth="46" strokeLinecap="round" />
+      <path d="M316 206 h46 v46" stroke="#fff" strokeWidth="46" strokeLinecap="round" strokeLinejoin="round" fill="none" />
       {/* Soft dots along the arrow */}
-      <circle cx="206" cy="330" r="15" fill="#C4B5FD" />
-      <circle cx="270" cy="285" r="13" fill="#BFDBFE" />
+      <circle cx="196" cy="328" r="15" fill="#C4B5FD" />
+      <circle cx="262" cy="281" r="13" fill="#BFDBFE" />
     </svg>
   );
 }
