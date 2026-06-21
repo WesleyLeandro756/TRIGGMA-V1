@@ -45,6 +45,31 @@ function creditPoints(
   ).run(points, customerId, tenantId);
 }
 
+type PlanKey = "free" | "starter" | "business" | "enterprise";
+const PLAN_LIMITS: Record<PlanKey, { customers: number; active_campaigns: number; users: number }> = {
+  free: { customers: 100, active_campaigns: 1, users: 1 },
+  starter: { customers: 1000, active_campaigns: 5, users: 3 },
+  business: { customers: 10000, active_campaigns: Infinity, users: 10 },
+  enterprise: { customers: Infinity, active_campaigns: Infinity, users: Infinity },
+};
+
+function planLimitsFor(plan: string) {
+  return PLAN_LIMITS[(plan as PlanKey)] ?? PLAN_LIMITS.free;
+}
+
+function planUsage(tenantId: string) {
+  const tenant = db.prepare("SELECT plan FROM tenants WHERE id = ?").get(tenantId) as any;
+  const limits = planLimitsFor(tenant?.plan ?? "free");
+  const customers = (db.prepare("SELECT COUNT(*) AS n FROM customers WHERE tenant_id = ?").get(tenantId) as any).n;
+  const active_campaigns = (
+    db.prepare("SELECT COUNT(*) AS n FROM campaigns WHERE tenant_id = ? AND status = 'active'").get(tenantId) as any
+  ).n;
+  const users = (db.prepare("SELECT COUNT(*) AS n FROM tenant_users WHERE tenant_id = ?").get(tenantId) as any).n;
+  return { plan: tenant?.plan ?? "free", limits, usage: { customers, active_campaigns, users } };
+}
+
+const toJSONLimit = (v: number) => (v === Infinity ? null : v);
+
 app.get("/api/health", (_req, res) => res.json({ ok: true }));
 
 /* ----------------------------- Auth ----------------------------- */
@@ -139,6 +164,19 @@ app.get("/api/dashboard", requireAuth("tenant_admin", "tenant_user"), (req, res)
   res.json(totals);
 });
 
+app.get("/api/plan", requireAuth("tenant_admin", "tenant_user"), (req, res) => {
+  const { plan, limits, usage } = planUsage(req.auth!.tenantId);
+  res.json({
+    plan,
+    usage,
+    limits: {
+      customers: toJSONLimit(limits.customers),
+      active_campaigns: toJSONLimit(limits.active_campaigns),
+      users: toJSONLimit(limits.users),
+    },
+  });
+});
+
 function campaignWithStats(t: string, row: any) {
   const conversions = (
     db
@@ -164,6 +202,13 @@ app.post("/api/campaigns", requireAuth("tenant_admin"), (req, res) => {
   if (start_date && end_date && end_date < start_date) {
     return res.status(400).json({ error: "end_before_start" });
   }
+  const newStatus = status ?? "active";
+  if (newStatus === "active") {
+    const { limits, usage } = planUsage(t);
+    if (usage.active_campaigns >= limits.active_campaigns) {
+      return res.status(403).json({ error: "plan_limit", resource: "active_campaigns", limit: toJSONLimit(limits.active_campaigns) });
+    }
+  }
   const id = newId();
   db.prepare(
     `INSERT INTO campaigns (id, tenant_id, name, reward_description, points_per_conversion, goal, start_date, end_date, status)
@@ -177,7 +222,7 @@ app.post("/api/campaigns", requireAuth("tenant_admin"), (req, res) => {
     Number(goal) || 100,
     start_date ?? null,
     end_date ?? null,
-    status ?? "active",
+    newStatus,
   );
   const row = db.prepare("SELECT * FROM campaigns WHERE id = ?").get(id);
   res.status(201).json(campaignWithStats(t, row));
@@ -189,13 +234,66 @@ app.patch("/api/campaigns/:id", requireAuth("tenant_admin"), (req, res) => {
     .prepare("SELECT * FROM campaigns WHERE id = ? AND tenant_id = ?")
     .get(req.params.id, t) as any;
   if (!existing) return res.status(404).json({ error: "not_found" });
-  const status = req.body?.status ?? existing.status;
-  db.prepare("UPDATE campaigns SET status = ? WHERE id = ? AND tenant_id = ?").run(
-    status,
+
+  const b = req.body ?? {};
+  const next = {
+    name: b.name ?? existing.name,
+    reward_description: b.reward_description ?? existing.reward_description,
+    points_per_conversion:
+      b.points_per_conversion != null ? Number(b.points_per_conversion) : existing.points_per_conversion,
+    goal: b.goal != null ? Number(b.goal) : existing.goal,
+    start_date: b.start_date !== undefined ? b.start_date : existing.start_date,
+    end_date: b.end_date !== undefined ? b.end_date : existing.end_date,
+    status: b.status ?? existing.status,
+  };
+  if (next.start_date && next.end_date && next.end_date < next.start_date) {
+    return res.status(400).json({ error: "end_before_start" });
+  }
+  // Enforce plan limit when moving into 'active'.
+  if (next.status === "active" && existing.status !== "active") {
+    const { limits, usage } = planUsage(t);
+    if (usage.active_campaigns >= limits.active_campaigns) {
+      return res.status(403).json({ error: "plan_limit", resource: "active_campaigns", limit: toJSONLimit(limits.active_campaigns) });
+    }
+  }
+  db.prepare(
+    `UPDATE campaigns SET name = ?, reward_description = ?, points_per_conversion = ?, goal = ?, start_date = ?, end_date = ?, status = ?
+     WHERE id = ? AND tenant_id = ?`,
+  ).run(
+    next.name,
+    next.reward_description,
+    next.points_per_conversion,
+    next.goal,
+    next.start_date,
+    next.end_date,
+    next.status,
     req.params.id,
     t,
   );
-  res.json(campaignWithStats(t, { ...existing, status }));
+  res.json(campaignWithStats(t, { ...existing, ...next }));
+});
+
+app.delete("/api/campaigns/:id", requireAuth("tenant_admin"), (req, res) => {
+  const t = req.auth!.tenantId;
+  const existing = db
+    .prepare("SELECT 1 FROM campaigns WHERE id = ? AND tenant_id = ?")
+    .get(req.params.id, t);
+  if (!existing) return res.status(404).json({ error: "not_found" });
+  const refs = (
+    db
+      .prepare(
+        `SELECT
+          (SELECT COUNT(*) FROM leads WHERE campaign_id = @c) +
+          (SELECT COUNT(*) FROM referral_links WHERE campaign_id = @c) +
+          (SELECT COUNT(*) FROM conversions WHERE campaign_id = @c) AS n`,
+      )
+      .get({ c: req.params.id }) as any
+  ).n;
+  if (refs > 0) {
+    return res.status(409).json({ error: "campaign_in_use" });
+  }
+  db.prepare("DELETE FROM campaigns WHERE id = ? AND tenant_id = ?").run(req.params.id, t);
+  res.json({ ok: true });
 });
 
 app.get("/api/rewards", requireAuth("tenant_admin", "tenant_user"), (req, res) => {
@@ -224,6 +322,52 @@ app.post("/api/rewards", requireAuth("tenant_admin"), (req, res) => {
   res.status(201).json(db.prepare("SELECT * FROM rewards WHERE id = ?").get(id));
 });
 
+app.patch("/api/rewards/:id", requireAuth("tenant_admin"), (req, res) => {
+  const t = req.auth!.tenantId;
+  const existing = db
+    .prepare("SELECT * FROM rewards WHERE id = ? AND tenant_id = ?")
+    .get(req.params.id, t) as any;
+  if (!existing) return res.status(404).json({ error: "not_found" });
+  const b = req.body ?? {};
+  const next = {
+    name: b.name ?? existing.name,
+    description: b.description !== undefined ? b.description : existing.description,
+    reward_type: b.reward_type ?? existing.reward_type,
+    points_required: b.points_required != null ? Number(b.points_required) : existing.points_required,
+    quantity_available:
+      b.quantity_available != null ? Number(b.quantity_available) : existing.quantity_available,
+    status: b.status ?? existing.status,
+  };
+  db.prepare(
+    `UPDATE rewards SET name = ?, description = ?, reward_type = ?, points_required = ?, quantity_available = ?, status = ?
+     WHERE id = ? AND tenant_id = ?`,
+  ).run(
+    next.name,
+    next.description,
+    next.reward_type,
+    next.points_required,
+    next.quantity_available,
+    next.status,
+    req.params.id,
+    t,
+  );
+  res.json(db.prepare("SELECT * FROM rewards WHERE id = ?").get(req.params.id));
+});
+
+app.delete("/api/rewards/:id", requireAuth("tenant_admin"), (req, res) => {
+  const t = req.auth!.tenantId;
+  const existing = db
+    .prepare("SELECT 1 FROM rewards WHERE id = ? AND tenant_id = ?")
+    .get(req.params.id, t);
+  if (!existing) return res.status(404).json({ error: "not_found" });
+  const used = db
+    .prepare("SELECT 1 FROM redemptions WHERE reward_id = ? LIMIT 1")
+    .get(req.params.id);
+  if (used) return res.status(409).json({ error: "reward_in_use" });
+  db.prepare("DELETE FROM rewards WHERE id = ? AND tenant_id = ?").run(req.params.id, t);
+  res.json({ ok: true });
+});
+
 app.get("/api/customers", requireAuth("tenant_admin", "tenant_user"), (req, res) => {
   const t = req.auth!.tenantId;
   res.json(
@@ -235,6 +379,10 @@ app.post("/api/customers", requireAuth("tenant_admin"), (req, res) => {
   const t = req.auth!.tenantId;
   const { name, whatsapp, email } = req.body ?? {};
   if (!name) return res.status(400).json({ error: "name_required" });
+  const { limits, usage } = planUsage(t);
+  if (usage.customers >= limits.customers) {
+    return res.status(403).json({ error: "plan_limit", resource: "customers", limit: toJSONLimit(limits.customers) });
+  }
   if (email) {
     const dup = db
       .prepare("SELECT 1 FROM customers WHERE tenant_id = ? AND email = ?")
@@ -251,6 +399,31 @@ app.post("/api/customers", requireAuth("tenant_admin"), (req, res) => {
      VALUES (?, ?, ?, ?, ?, ?, 0)`,
   ).run(id, t, name, whatsapp ?? null, email ?? null, code);
   res.status(201).json(db.prepare("SELECT * FROM customers WHERE id = ?").get(id));
+});
+
+app.patch("/api/customers/:id", requireAuth("tenant_admin"), (req, res) => {
+  const t = req.auth!.tenantId;
+  const existing = db
+    .prepare("SELECT * FROM customers WHERE id = ? AND tenant_id = ?")
+    .get(req.params.id, t) as any;
+  if (!existing) return res.status(404).json({ error: "not_found" });
+  const b = req.body ?? {};
+  const email = b.email !== undefined ? b.email : existing.email;
+  if (email && email !== existing.email) {
+    const dup = db
+      .prepare("SELECT 1 FROM customers WHERE tenant_id = ? AND email = ? AND id <> ?")
+      .get(t, email, req.params.id);
+    if (dup) return res.status(409).json({ error: "duplicate_email" });
+  }
+  const next = {
+    name: b.name ?? existing.name,
+    whatsapp: b.whatsapp !== undefined ? b.whatsapp : existing.whatsapp,
+    email,
+  };
+  db.prepare(
+    "UPDATE customers SET name = ?, whatsapp = ?, email = ? WHERE id = ? AND tenant_id = ?",
+  ).run(next.name, next.whatsapp, next.email, req.params.id, t);
+  res.json(db.prepare("SELECT * FROM customers WHERE id = ?").get(req.params.id));
 });
 
 app.get("/api/leads", requireAuth("tenant_admin", "tenant_user"), (req, res) => {

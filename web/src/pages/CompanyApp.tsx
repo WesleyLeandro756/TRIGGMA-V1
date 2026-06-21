@@ -90,10 +90,18 @@ export function CompanyApp() {
   );
 }
 
+interface PlanInfo {
+  plan: string;
+  usage: { customers: number; active_campaigns: number; users: number };
+  limits: { customers: number | null; active_campaigns: number | null; users: number | null };
+}
+
 function Dashboard() {
   const [data, setData] = useState<Record<string, number> | null>(null);
+  const [plan, setPlan] = useState<PlanInfo | null>(null);
   useEffect(() => {
     api.get<Record<string, number>>("/dashboard", "company").then(setData);
+    api.get<PlanInfo>("/plan", "company").then(setPlan);
   }, []);
   const cards = [
     { label: "Clientes ativos", key: "customers", tone: "text-brand-blue" },
@@ -116,6 +124,46 @@ function Dashboard() {
           </div>
         ))}
       </div>
+      {plan && <PlanUsage plan={plan} />}
+    </div>
+  );
+}
+
+function PlanUsage({ plan }: { plan: PlanInfo }) {
+  const rows: { label: string; used: number; limit: number | null }[] = [
+    { label: "Clientes", used: plan.usage.customers, limit: plan.limits.customers },
+    { label: "Campanhas ativas", used: plan.usage.active_campaigns, limit: plan.limits.active_campaigns },
+    { label: "Usuários", used: plan.usage.users, limit: plan.limits.users },
+  ];
+  return (
+    <div className="mt-6 rounded-2xl border border-slate-100 bg-white p-5 shadow-sm">
+      <div className="flex items-center justify-between">
+        <h2 className="font-bold">Uso do plano</h2>
+        <span className="rounded-full bg-brand-ink px-3 py-1 text-xs font-bold uppercase tracking-wide text-white">
+          {plan.plan}
+        </span>
+      </div>
+      <div className="mt-4 grid gap-4 sm:grid-cols-3">
+        {rows.map((r) => {
+          const pct = r.limit ? Math.min(100, Math.round((r.used / r.limit) * 100)) : 0;
+          return (
+            <div key={r.label}>
+              <div className="flex items-center justify-between text-sm">
+                <span className="font-medium text-slate-600">{r.label}</span>
+                <span className="text-slate-500">
+                  {r.used.toLocaleString("pt-BR")} / {r.limit === null ? "∞" : r.limit.toLocaleString("pt-BR")}
+                </span>
+              </div>
+              <div className="mt-1.5 h-2 w-full overflow-hidden rounded-full bg-slate-100">
+                <div
+                  className={`h-full rounded-full ${pct >= 100 ? "bg-red-500" : "bg-gradient-to-r from-brand-blue to-brand-purple"}`}
+                  style={{ width: r.limit === null ? "12%" : `${pct}%` }}
+                />
+              </div>
+            </div>
+          );
+        })}
+      </div>
     </div>
   );
 }
@@ -130,33 +178,75 @@ interface Campaign {
   conversions: number;
 }
 
+const emptyCampaign = { name: "", reward_description: "", points_per_conversion: 100, goal: 200 };
+
 function Campaigns() {
   const [items, setItems] = useState<Campaign[]>([]);
   const [open, setOpen] = useState(false);
-  const [form, setForm] = useState({ name: "", points_per_conversion: 100, goal: 200 });
+  const [editingId, setEditingId] = useState<string | null>(null);
+  const [form, setForm] = useState({ ...emptyCampaign });
   const [err, setErr] = useState("");
+  const [notice, setNotice] = useState("");
 
   const load = () => api.get<Campaign[]>("/campaigns", "company").then(setItems);
   useEffect(() => {
     load();
   }, []);
 
-  async function create(e: React.FormEvent) {
+  function openCreate() {
+    setEditingId(null);
+    setForm({ ...emptyCampaign });
+    setErr("");
+    setOpen(true);
+  }
+  function openEdit(c: Campaign) {
+    setEditingId(c.id);
+    setForm({
+      name: c.name,
+      reward_description: c.reward_description ?? "",
+      points_per_conversion: c.points_per_conversion,
+      goal: c.goal,
+    });
+    setErr("");
+    setOpen(true);
+  }
+
+  async function save(e: React.FormEvent) {
     e.preventDefault();
     setErr("");
     try {
-      await api.post("/campaigns", form, "company");
+      if (editingId) {
+        await api.patch(`/campaigns/${editingId}`, form, "company");
+      } else {
+        await api.post("/campaigns", form, "company");
+      }
       setOpen(false);
-      setForm({ name: "", points_per_conversion: 100, goal: 200 });
+      setEditingId(null);
+      setForm({ ...emptyCampaign });
       load();
-    } catch {
-      setErr("Erro ao criar campanha.");
+    } catch (e2) {
+      setErr(translateError((e2 as Error).message));
     }
   }
 
   async function toggle(c: Campaign) {
-    await api.patch(`/campaigns/${c.id}`, { status: c.status === "active" ? "paused" : "active" }, "company");
-    load();
+    setNotice("");
+    try {
+      await api.patch(`/campaigns/${c.id}`, { status: c.status === "active" ? "paused" : "active" }, "company");
+      load();
+    } catch (e) {
+      setNotice(translateError((e as Error).message));
+    }
+  }
+
+  async function remove(c: Campaign) {
+    setNotice("");
+    try {
+      await api.del(`/campaigns/${c.id}`, "company");
+      load();
+    } catch (e) {
+      setNotice(translateError((e as Error).message));
+    }
   }
 
   return (
@@ -165,19 +255,25 @@ function Campaigns() {
         title="Campanhas de Indicação"
         subtitle="Crie, gerencie e acompanhe o desempenho das suas campanhas de indicação."
         action={
-          <button
-            onClick={() => setOpen((v) => !v)}
-            className="rounded-xl bg-brand-blue px-4 py-2.5 text-sm font-bold text-white shadow"
-          >
+          <button onClick={openCreate} className="rounded-xl bg-brand-blue px-4 py-2.5 text-sm font-bold text-white shadow">
             + Nova campanha
           </button>
         }
       />
 
+      {notice && <p className="mb-4 rounded-lg bg-amber-50 px-3 py-2 text-sm font-medium text-amber-700">{notice}</p>}
+
       {open && (
-        <form onSubmit={create} className="mb-6 rounded-2xl border border-slate-100 bg-white p-5 shadow-sm">
-          <div className="grid gap-4 sm:grid-cols-3">
+        <form onSubmit={save} className="mb-6 rounded-2xl border border-slate-100 bg-white p-5 shadow-sm">
+          <h3 className="mb-3 font-bold">{editingId ? "Editar campanha" : "Nova campanha"}</h3>
+          <div className="grid gap-4 sm:grid-cols-2">
             <Input label="Nome" value={form.name} onChange={(v) => setForm({ ...form, name: v })} />
+            <Input
+              label="Descrição da recompensa"
+              value={form.reward_description}
+              onChange={(v) => setForm({ ...form, reward_description: v })}
+              required={false}
+            />
             <Input
               label="Pontos por conversão"
               type="number"
@@ -192,9 +288,16 @@ function Campaigns() {
             />
           </div>
           {err && <p className="mt-3 text-sm text-red-600">{err}</p>}
-          <button className="mt-4 rounded-xl bg-brand-ink px-5 py-2.5 text-sm font-bold text-white">
-            Salvar campanha
-          </button>
+          <div className="mt-4 flex gap-2">
+            <button className="rounded-xl bg-brand-ink px-5 py-2.5 text-sm font-bold text-white">Salvar</button>
+            <button
+              type="button"
+              onClick={() => setOpen(false)}
+              className="rounded-xl border border-slate-200 px-5 py-2.5 text-sm font-bold text-slate-600"
+            >
+              Cancelar
+            </button>
+          </div>
         </form>
       )}
 
@@ -225,12 +328,26 @@ function Campaigns() {
               <div className="text-right">
                 <div className="text-2xl font-extrabold text-brand-blue">{c.conversions}</div>
                 <div className="text-xs text-slate-500">Conversões</div>
-                <button
-                  onClick={() => toggle(c)}
-                  className="mt-2 rounded-lg border border-slate-200 px-3 py-1 text-xs font-semibold text-slate-600 hover:border-slate-300"
-                >
-                  {c.status === "active" ? "Pausar" : "Ativar"}
-                </button>
+                <div className="mt-2 flex flex-wrap justify-end gap-1.5">
+                  <button
+                    onClick={() => toggle(c)}
+                    className="rounded-lg border border-slate-200 px-3 py-1 text-xs font-semibold text-slate-600 hover:border-slate-300"
+                  >
+                    {c.status === "active" ? "Pausar" : "Ativar"}
+                  </button>
+                  <button
+                    onClick={() => openEdit(c)}
+                    className="rounded-lg border border-slate-200 px-3 py-1 text-xs font-semibold text-slate-600 hover:border-slate-300"
+                  >
+                    Editar
+                  </button>
+                  <button
+                    onClick={() => remove(c)}
+                    className="rounded-lg border border-red-200 px-3 py-1 text-xs font-semibold text-red-600 hover:border-red-300"
+                  >
+                    Excluir
+                  </button>
+                </div>
               </div>
             </div>
           );
@@ -318,21 +435,53 @@ interface Reward {
   quantity_available: number;
 }
 
+const emptyReward = { name: "", points_required: 300, reward_type: "discount", quantity_available: 100 };
+
 function Rewards() {
   const [items, setItems] = useState<Reward[]>([]);
   const [open, setOpen] = useState(false);
-  const [form, setForm] = useState({ name: "", points_required: 300, reward_type: "discount" });
+  const [editingId, setEditingId] = useState<string | null>(null);
+  const [form, setForm] = useState({ ...emptyReward });
+  const [notice, setNotice] = useState("");
   const load = () => api.get<Reward[]>("/rewards", "company").then(setItems);
   useEffect(() => {
     load();
   }, []);
 
-  async function create(e: React.FormEvent) {
+  function openCreate() {
+    setEditingId(null);
+    setForm({ ...emptyReward });
+    setOpen(true);
+  }
+  function openEdit(r: Reward) {
+    setEditingId(r.id);
+    setForm({
+      name: r.name,
+      points_required: r.points_required,
+      reward_type: r.reward_type,
+      quantity_available: r.quantity_available,
+    });
+    setOpen(true);
+  }
+
+  async function save(e: React.FormEvent) {
     e.preventDefault();
-    await api.post("/rewards", form, "company");
+    if (editingId) await api.patch(`/rewards/${editingId}`, form, "company");
+    else await api.post("/rewards", form, "company");
     setOpen(false);
-    setForm({ name: "", points_required: 300, reward_type: "discount" });
+    setEditingId(null);
+    setForm({ ...emptyReward });
     load();
+  }
+
+  async function remove(r: Reward) {
+    setNotice("");
+    try {
+      await api.del(`/rewards/${r.id}`, "company");
+      load();
+    } catch (e) {
+      setNotice(translateError((e as Error).message));
+    }
   }
 
   return (
@@ -341,20 +490,28 @@ function Rewards() {
         title="Catálogo de Recompensas"
         subtitle="Troque pontos por recompensas incríveis."
         action={
-          <button onClick={() => setOpen((v) => !v)} className="rounded-xl bg-brand-blue px-4 py-2.5 text-sm font-bold text-white shadow">
+          <button onClick={openCreate} className="rounded-xl bg-brand-blue px-4 py-2.5 text-sm font-bold text-white shadow">
             + Nova recompensa
           </button>
         }
       />
+      {notice && <p className="mb-4 rounded-lg bg-amber-50 px-3 py-2 text-sm font-medium text-amber-700">{notice}</p>}
       {open && (
-        <form onSubmit={create} className="mb-6 rounded-2xl border border-slate-100 bg-white p-5 shadow-sm">
-          <div className="grid gap-4 sm:grid-cols-3">
+        <form onSubmit={save} className="mb-6 rounded-2xl border border-slate-100 bg-white p-5 shadow-sm">
+          <h3 className="mb-3 font-bold">{editingId ? "Editar recompensa" : "Nova recompensa"}</h3>
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
             <Input label="Nome" value={form.name} onChange={(v) => setForm({ ...form, name: v })} />
             <Input
               label="Pontos necessários"
               type="number"
               value={String(form.points_required)}
               onChange={(v) => setForm({ ...form, points_required: Number(v) })}
+            />
+            <Input
+              label="Estoque"
+              type="number"
+              value={String(form.quantity_available)}
+              onChange={(v) => setForm({ ...form, quantity_available: Number(v) })}
             />
             <label className="block">
               <span className="mb-1 block text-sm font-semibold text-slate-700">Tipo</span>
@@ -370,7 +527,16 @@ function Rewards() {
               </select>
             </label>
           </div>
-          <button className="mt-4 rounded-xl bg-brand-ink px-5 py-2.5 text-sm font-bold text-white">Salvar</button>
+          <div className="mt-4 flex gap-2">
+            <button className="rounded-xl bg-brand-ink px-5 py-2.5 text-sm font-bold text-white">Salvar</button>
+            <button
+              type="button"
+              onClick={() => setOpen(false)}
+              className="rounded-xl border border-slate-200 px-5 py-2.5 text-sm font-bold text-slate-600"
+            >
+              Cancelar
+            </button>
+          </div>
         </form>
       )}
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
@@ -383,6 +549,20 @@ function Rewards() {
             <div className="mt-1 text-sm font-semibold text-brand-blue">{r.points_required} pts</div>
             <div className="mt-1 text-xs text-slate-500">
               {r.quantity_available} disponíveis · {r.reward_type}
+            </div>
+            <div className="mt-3 flex gap-1.5">
+              <button
+                onClick={() => openEdit(r)}
+                className="rounded-lg border border-slate-200 px-3 py-1 text-xs font-semibold text-slate-600 hover:border-slate-300"
+              >
+                Editar
+              </button>
+              <button
+                onClick={() => remove(r)}
+                className="rounded-lg border border-red-200 px-3 py-1 text-xs font-semibold text-red-600 hover:border-red-300"
+              >
+                Excluir
+              </button>
             </div>
           </div>
         ))}
@@ -403,6 +583,7 @@ interface Customer {
 function Customers() {
   const [items, setItems] = useState<Customer[]>([]);
   const [open, setOpen] = useState(false);
+  const [editingId, setEditingId] = useState<string | null>(null);
   const [form, setForm] = useState({ name: "", email: "", whatsapp: "" });
   const [err, setErr] = useState("");
   const load = () => api.get<Customer[]>("/customers", "company").then(setItems);
@@ -410,16 +591,31 @@ function Customers() {
     load();
   }, []);
 
-  async function create(e: React.FormEvent) {
+  function openCreate() {
+    setEditingId(null);
+    setForm({ name: "", email: "", whatsapp: "" });
+    setErr("");
+    setOpen(true);
+  }
+  function openEdit(c: Customer) {
+    setEditingId(c.id);
+    setForm({ name: c.name, email: c.email ?? "", whatsapp: c.whatsapp ?? "" });
+    setErr("");
+    setOpen(true);
+  }
+
+  async function save(e: React.FormEvent) {
     e.preventDefault();
     setErr("");
     try {
-      await api.post("/customers", form, "company");
+      if (editingId) await api.patch(`/customers/${editingId}`, form, "company");
+      else await api.post("/customers", form, "company");
       setOpen(false);
+      setEditingId(null);
       setForm({ name: "", email: "", whatsapp: "" });
       load();
     } catch (e2) {
-      setErr((e2 as Error).message === "duplicate_email" ? "E-mail já cadastrado." : "Erro.");
+      setErr(translateError((e2 as Error).message));
     }
   }
 
@@ -429,20 +625,30 @@ function Customers() {
         title="Clientes"
         subtitle="Seus promotores. Cada um possui código e link de indicação."
         action={
-          <button onClick={() => setOpen((v) => !v)} className="rounded-xl bg-brand-blue px-4 py-2.5 text-sm font-bold text-white shadow">
+          <button onClick={openCreate} className="rounded-xl bg-brand-blue px-4 py-2.5 text-sm font-bold text-white shadow">
             + Novo cliente
           </button>
         }
       />
       {open && (
-        <form onSubmit={create} className="mb-6 rounded-2xl border border-slate-100 bg-white p-5 shadow-sm">
+        <form onSubmit={save} className="mb-6 rounded-2xl border border-slate-100 bg-white p-5 shadow-sm">
+          <h3 className="mb-3 font-bold">{editingId ? "Editar cliente" : "Novo cliente"}</h3>
           <div className="grid gap-4 sm:grid-cols-3">
             <Input label="Nome" value={form.name} onChange={(v) => setForm({ ...form, name: v })} />
-            <Input label="E-mail" value={form.email} onChange={(v) => setForm({ ...form, email: v })} />
-            <Input label="WhatsApp" value={form.whatsapp} onChange={(v) => setForm({ ...form, whatsapp: v })} />
+            <Input label="E-mail" value={form.email} onChange={(v) => setForm({ ...form, email: v })} required={false} />
+            <Input label="WhatsApp" value={form.whatsapp} onChange={(v) => setForm({ ...form, whatsapp: v })} required={false} />
           </div>
           {err && <p className="mt-3 text-sm text-red-600">{err}</p>}
-          <button className="mt-4 rounded-xl bg-brand-ink px-5 py-2.5 text-sm font-bold text-white">Salvar</button>
+          <div className="mt-4 flex gap-2">
+            <button className="rounded-xl bg-brand-ink px-5 py-2.5 text-sm font-bold text-white">Salvar</button>
+            <button
+              type="button"
+              onClick={() => setOpen(false)}
+              className="rounded-xl border border-slate-200 px-5 py-2.5 text-sm font-bold text-slate-600"
+            >
+              Cancelar
+            </button>
+          </div>
         </form>
       )}
       <div className="overflow-hidden rounded-2xl border border-slate-100 bg-white shadow-sm">
@@ -453,6 +659,7 @@ function Customers() {
               <th className="px-5 py-3">Código</th>
               <th className="px-5 py-3">Contato</th>
               <th className="px-5 py-3 text-right">Pontos</th>
+              <th className="px-5 py-3"></th>
             </tr>
           </thead>
           <tbody className="divide-y divide-slate-100">
@@ -462,6 +669,14 @@ function Customers() {
                 <td className="px-5 py-3 font-mono text-xs text-slate-600">{c.referral_code}</td>
                 <td className="px-5 py-3 text-slate-600">{c.email ?? c.whatsapp ?? "—"}</td>
                 <td className="px-5 py-3 text-right font-bold text-brand-blue">{c.points_balance}</td>
+                <td className="px-5 py-3 text-right">
+                  <button
+                    onClick={() => openEdit(c)}
+                    className="rounded-lg border border-slate-200 px-3 py-1 text-xs font-semibold text-slate-600 hover:border-slate-300"
+                  >
+                    Editar
+                  </button>
+                </td>
               </tr>
             ))}
           </tbody>
@@ -472,6 +687,19 @@ function Customers() {
 }
 
 /* shared bits */
+
+function translateError(code: string): string {
+  const map: Record<string, string> = {
+    plan_limit: "Limite do plano atingido. Faça upgrade para continuar.",
+    duplicate_email: "E-mail já cadastrado.",
+    end_before_start: "A data final não pode ser anterior à inicial.",
+    campaign_in_use: "Não é possível excluir: a campanha já possui leads/conversões.",
+    reward_in_use: "Não é possível excluir: a recompensa já possui resgates.",
+    name_required: "Informe um nome.",
+    missing_fields: "Preencha os campos obrigatórios.",
+  };
+  return map[code] ?? "Ocorreu um erro. Tente novamente.";
+}
 
 function PageTitle({
   title,
@@ -522,11 +750,13 @@ function Input({
   value,
   onChange,
   type = "text",
+  required = true,
 }: {
   label: string;
   value: string;
   onChange: (v: string) => void;
   type?: string;
+  required?: boolean;
 }) {
   return (
     <label className="block">
@@ -536,7 +766,7 @@ function Input({
         value={value}
         onChange={(e) => onChange(e.target.value)}
         className="w-full rounded-xl border border-slate-200 px-4 py-2.5 outline-none focus:border-brand-blue focus:ring-2 focus:ring-indigo-100"
-        required
+        required={required}
       />
     </label>
   );

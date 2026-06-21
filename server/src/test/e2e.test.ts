@@ -135,7 +135,81 @@ async function main() {
     const failRedeem = await http("POST", `/customer/rewards/${pricey.id}/redeem`, {}, me.body.token);
     check("insufficient points blocked", failRedeem.status === 400);
 
-    // 11. Auth enforcement
+    // 11. Plan usage endpoint
+    const plan = await http("GET", "/plan", undefined, token);
+    check(
+      "plan endpoint reports business plan + limits",
+      plan.status === 200 && plan.body.plan === "business" && plan.body.limits.customers === 10000,
+    );
+
+    // 12. Reward CRUD (create -> patch -> delete)
+    const newReward = await http(
+      "POST",
+      "/rewards",
+      { name: "Reward E2E", points_required: 150, reward_type: "product", quantity_available: 5 },
+      token,
+    );
+    check("reward created", newReward.status === 201);
+    const patchedReward = await http(
+      "PATCH",
+      `/rewards/${newReward.body.id}`,
+      { points_required: 175, quantity_available: 9 },
+      token,
+    );
+    check(
+      "reward updated",
+      patchedReward.status === 200 && patchedReward.body.points_required === 175 && patchedReward.body.quantity_available === 9,
+    );
+    const delReward = await http("DELETE", `/rewards/${newReward.body.id}`, undefined, token);
+    check("reward deleted", delReward.status === 200);
+
+    // 13. Campaign edit + delete protections
+    const camps = await http("GET", "/campaigns", undefined, token);
+    const editable = (camps.body as any[]).find((c) => c.name === "Teste E2E");
+    const editedCampaign = await http(
+      "PATCH",
+      `/campaigns/${editable.id}`,
+      { name: "Teste E2E (editado)", points_per_conversion: 90 },
+      token,
+    );
+    check(
+      "campaign edited",
+      editedCampaign.status === 200 && editedCampaign.body.name === "Teste E2E (editado)" && editedCampaign.body.points_per_conversion === 90,
+    );
+    const seededCampaign = (camps.body as any[]).find((c) => c.conversions > 0);
+    const blockedDelete = await http("DELETE", `/campaigns/${seededCampaign.id}`, undefined, token);
+    check("campaign with conversions cannot be deleted", blockedDelete.status === 409);
+
+    // 14. Customer edit
+    const newCustomer = await http(
+      "POST",
+      "/customers",
+      { name: "Cliente E2E", email: "cliente.e2e@example.com" },
+      token,
+    );
+    check("customer created", newCustomer.status === 201);
+    const editedCustomer = await http(
+      "PATCH",
+      `/customers/${newCustomer.body.id}`,
+      { name: "Cliente E2E Renomeado" },
+      token,
+    );
+    check("customer edited", editedCustomer.status === 200 && editedCustomer.body.name === "Cliente E2E Renomeado");
+
+    // 15. Plan limit enforcement on a fresh FREE tenant (1 active campaign allowed)
+    const reg = await http("POST", "/auth/register-company", {
+      companyName: "Empresa Free E2E",
+      name: "Dono",
+      email: `free.e2e.${Date.now()}@example.com`,
+      password: "secret123",
+    });
+    const freeToken = reg.body.token as string;
+    const firstCampaign = await http("POST", "/campaigns", { name: "C1", status: "active" }, freeToken);
+    check("free tenant: first active campaign allowed", firstCampaign.status === 201);
+    const secondCampaign = await http("POST", "/campaigns", { name: "C2", status: "active" }, freeToken);
+    check("free tenant: second active campaign blocked by plan limit", secondCampaign.status === 403 && secondCampaign.body.error === "plan_limit");
+
+    // 16. Auth enforcement
     const noAuth = await http("GET", "/dashboard");
     check("dashboard requires auth", noAuth.status === 401);
 
